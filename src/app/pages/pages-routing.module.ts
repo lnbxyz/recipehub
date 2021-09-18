@@ -8,6 +8,10 @@ const routes: Routes = [
       import('./recipes/recipes.module').then((m) => m.RecipesModule),
   },
   {
+    path: 'feed',
+    loadChildren: () => import('./feed/feed.module').then((m) => m.FeedModule),
+  },
+  {
     path: '**',
     redirectTo: 'recipes',
   },

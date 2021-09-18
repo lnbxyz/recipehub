@@ -1,0 +1,9 @@
+<nav>
+  <h1 class="logo">RecipeHub</h1>
+
+  <ul>
+    <li *ngFor="let item of items">
+      <a [routerLink]="item.link" routerLinkActive="active">{{ item.name }}</a>
+    </li>
+  </ul>
+</nav>
