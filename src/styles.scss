@@ -28,4 +28,11 @@ h5,
 h6,
 p {
   margin: unset;
+  padding: unset;
+}
+
+ul,
+ol {
+  margin: unset;
+  padding-inline-start: 1.5rem;
 }

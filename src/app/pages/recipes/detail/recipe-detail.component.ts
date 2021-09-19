@@ -39,4 +39,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     // TODO
     console.log('edit button pressed');
   }
+
+  public onDeleteButtonPressed(): void {
+    // TODO
+    console.log('delete button pressed');
+  }
 }
