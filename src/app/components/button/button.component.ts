@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'rh-button',
@@ -6,7 +13,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
+  @Input() public type: 'primary' | 'secondary' = 'primary';
+
+  @HostBinding('style.--rh-button-color')
+  @Input()
+  public color: string = '';
+
   @Input() public icon: string = '';
+
   @Output() public onClick = new EventEmitter<Event>();
 
   constructor() {}
