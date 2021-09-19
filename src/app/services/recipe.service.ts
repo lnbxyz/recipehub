@@ -5,38 +5,10 @@ import { Recipe } from '../tokens';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
-  constructor() {}
-
-  public getAll(): Observable<Recipe[]> {
-    // TODO implement http call
-    // temporarily return mock data
-    return of([
-      {
-        name: 'Milkshake de Morango',
-        description:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores eos vitae tempore explicabo laboriosam voluptatem ut blanditiis, perspiciatis animi mollitia hic provident nemo dignissimos iste id eaque fugit corporis culpa!',
-        tags: [
-          {
-            name: 'Verão',
-            color: '#ffb400',
-          },
-          {
-            name: 'test',
-          },
-        ],
-      },
-      {
-        name: 'Milkshake de Ovomaltine',
-        description:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores eos vitae tempore explicabo laboriosam voluptatem ut blanditiis, perspiciatis animi mollitia hic provident nemo dignissimos iste id eaque fugit corporis culpa!',
-      },
-    ]).pipe(delay(1000));
-  }
-
-  public getById(id: string): Observable<Recipe> {
-    // TODO implement http call
-    // temporarily return mock data
-    return of({
+  // TEMPORARY
+  private mockData: Recipe[] = [
+    {
+      id: '6f3e5eea-2064-4fb8-97e2-faa005e78a6e',
       name: 'Milkshake de Morango',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores eos vitae tempore explicabo laboriosam voluptatem ut blanditiis, perspiciatis animi mollitia hic provident nemo dignissimos iste id eaque fugit corporis culpa!',
@@ -81,6 +53,28 @@ export class RecipeService {
           name: 'test',
         },
       ],
-    }).pipe(delay(1000));
+    },
+    {
+      id: '2579a927-9697-4d98-a562-339792267c86',
+      name: 'Milkshake de Ovomaltine',
+      description:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores eos vitae tempore explicabo laboriosam voluptatem ut blanditiis, perspiciatis animi mollitia hic provident nemo dignissimos iste id eaque fugit corporis culpa!',
+    },
+  ];
+
+  constructor() {}
+
+  public getAll(): Observable<Recipe[] | undefined> {
+    // TODO implement http call
+    // temporarily return mock data
+    return of(this.mockData).pipe(delay(1000));
+  }
+
+  public getById(id: string): Observable<Recipe | undefined> {
+    // TODO implement http call
+    // temporarily return mock data
+    return of(this.mockData.find((recipe) => recipe.id === id)).pipe(
+      delay(1000)
+    );
   }
 }

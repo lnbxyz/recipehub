@@ -24,7 +24,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       this.subscriptions.add(
         'get-details',
         this.recipeService.getById(ID).subscribe((recipe) => {
-          this.recipe = recipe;
+          if (recipe) {
+            this.recipe = recipe;
+          }
           this.isLoading = false;
         })
       );

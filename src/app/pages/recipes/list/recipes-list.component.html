@@ -1,18 +1,30 @@
 <div class="header">
   <h1>Minhas Receitas</h1>
 
-  <rh-button icon="plus" (onClick)="zoop($event)">Nova receita</rh-button>
+  <rh-button icon="plus" (onClick)="onCreateButtonPressed()">
+    Nova receita
+  </rh-button>
 </div>
 
-<ng-container *ngIf="recipes?.length; else emptyMessage"></ng-container>
-<rh-recipe-card
-  *ngFor="let recipe of recipes"
-  [recipe]="recipe"
-></rh-recipe-card>
+<ng-container *ngIf="!isLoading; else loading">
+  <ng-container *ngIf="recipes?.length; else emptyMessage">
+    <rh-recipe-card
+      *ngFor="let recipe of recipes"
+      [recipe]="recipe"
+      (click)="onRecipeCardPressed(recipe)"
+    ></rh-recipe-card>
+  </ng-container>
+</ng-container>
 
 <ng-template #emptyMessage>
   <div class="empty-message">
     <i class="far fa-frown"></i>
     <span>Não encontramos nenhuma receita!</span>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="loading">
+    <i class="fas fa-spinner fa-spin"></i>
   </div>
 </ng-template>

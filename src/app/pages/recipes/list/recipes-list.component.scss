@@ -11,6 +11,14 @@
   flex-wrap: wrap;
 }
 
+.loading {
+  padding: 2rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .empty-message {
   display: flex;
   flex-direction: column;
