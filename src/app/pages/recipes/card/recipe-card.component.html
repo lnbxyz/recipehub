@@ -1,6 +1,6 @@
 <h2>{{ recipe?.name }}</h2>
 
-<p>{{ recipe?.description }}</p>
+<p *ngIf="recipe?.description">{{ recipe.description }}</p>
 
 <div class="tag-list" *ngIf="recipe?.tags?.length">
   <rh-tag
