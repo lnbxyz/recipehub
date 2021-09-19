@@ -1,0 +1,16 @@
+<div class="header">
+  <h1>{{ recipe.name }}</h1>
+  <div class="actions">
+    <rh-button
+      type="secondary"
+      icon="trash"
+      color="var(--rh-color-red)"
+      (onClick)="onEditButtonPressed()"
+    >
+      Apagar
+    </rh-button>
+    <rh-button type="secondary" icon="pen" (onClick)="onEditButtonPressed()">
+      Editar
+    </rh-button>
+  </div>
+</div>
