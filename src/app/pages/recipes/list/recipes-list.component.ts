@@ -8,4 +8,8 @@ export class RecipesListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  zoop(e: any) {
+    console.log(e);
+  }
 }

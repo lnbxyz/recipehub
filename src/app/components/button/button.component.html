@@ -1,0 +1,4 @@
+<button (click)="onClick.emit($event)">
+  <i *ngIf="icon" [class]="'fas fa-' + icon"></i>
+  <span><ng-content></ng-content></span>
+</button>

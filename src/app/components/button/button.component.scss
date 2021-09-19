@@ -1,0 +1,27 @@
+button {
+  padding: 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background-color: var(--rh-color-accent);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  transition: box-shadow 0.1s ease-in-out;
+
+  > span {
+    font-size: 1.125rem;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+  }
+
+  > i {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0.25rem 0.5rem 0 var(--rh-color-accent);
+  }
+}
