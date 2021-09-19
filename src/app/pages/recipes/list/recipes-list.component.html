@@ -1,2 +1,18 @@
-<p>recipes-list works!</p>
-<rh-button icon="plus" (onClick)="zoop($event)">Adicionar</rh-button>
+<div class="header">
+  <h1>Minhas Receitas</h1>
+
+  <rh-button icon="plus" (onClick)="zoop($event)">Nova receita</rh-button>
+</div>
+
+<ng-container *ngIf="recipes?.length; else emptyMessage"></ng-container>
+<rh-recipe-card
+  *ngFor="let recipe of recipes"
+  [recipe]="recipe"
+></rh-recipe-card>
+
+<ng-template #emptyMessage>
+  <div class="empty-message">
+    <i class="far fa-frown"></i>
+    <span>Não encontramos nenhuma receita!</span>
+  </div>
+</ng-template>

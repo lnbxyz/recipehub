@@ -1,3 +1,3 @@
 export interface MustHaveOwner {
-  userId: string;
+  userId?: string;
 }
