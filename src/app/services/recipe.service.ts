@@ -24,6 +24,11 @@ export class RecipeService {
           },
         ],
       },
+      {
+        name: 'Milkshake de Ovomaltine',
+        description:
+          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores eos vitae tempore explicabo laboriosam voluptatem ut blanditiis, perspiciatis animi mollitia hic provident nemo dignissimos iste id eaque fugit corporis culpa!',
+      },
     ]);
   }
 }

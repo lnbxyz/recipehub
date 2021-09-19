@@ -18,3 +18,10 @@
       0px 4.4px 4.4px rgba(0, 0, 0, 0.034), 0px 12px 12px rgba(0, 0, 0, 0.05);
   }
 }
+
+.tag-list {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}

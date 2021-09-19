@@ -1,0 +1,22 @@
+:host {
+  --rh-tag-color: var(--rh-color-text-secondary);
+
+  background-color: var(--rh-color-background-secondary);
+  color: var(--rh-tag-color);
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--rh-tag-color);
+}
+
+span {
+  font-weight: 700;
+}
