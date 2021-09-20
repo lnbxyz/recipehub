@@ -79,7 +79,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   private create(): void {
     this.subscriptions.add(
-      'get-details',
+      'create',
       this.recipeService
         .create({
           id: uuidv4(),
@@ -106,11 +106,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private update(): void {
+    if (!this.recipe) {
+      return;
+    }
     this.subscriptions.add(
-      'get-details',
+      'update',
       this.recipeService
         .update({
-          id: this.recipe?.id,
+          id: this.recipe.id,
           name: this.form.get('name')?.value,
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,

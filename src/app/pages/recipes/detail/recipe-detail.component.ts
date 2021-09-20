@@ -43,7 +43,23 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   public onDeleteButtonPressed(): void {
-    // TODO
-    console.log('delete button pressed');
+    if (!this.recipe) {
+      return;
+    }
+    this.isLoading = true;
+    this.subscriptions.add(
+      'delete',
+      this.recipeService.delete(this.recipe.id).subscribe(
+        // Success
+        (result) => {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        },
+        // Failure
+        (error) => {
+          // TODO
+          console.log('could not delete recipe');
+        }
+      )
+    );
   }
 }
