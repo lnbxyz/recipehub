@@ -2,7 +2,11 @@
   <div class="header">
     <h1>{{ isCreating ? "Nova receita" : "Editar receita" }}</h1>
     <div class="actions">
-      <rh-button icon="save" (onClick)="onSaveButtonPressed()">
+      <rh-button
+        icon="save"
+        [disabled]="!canSave()"
+        (onClick)="onSaveButtonPressed()"
+      >
         Salvar
       </rh-button>
     </div>

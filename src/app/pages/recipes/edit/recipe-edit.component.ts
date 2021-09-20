@@ -28,7 +28,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     const ID = this.route.snapshot.paramMap.get('id');
     if (!ID) {
       this.isCreating = true;
-      this.isLoading = false;
       this.initForm();
     } else {
       if (ID) {
@@ -38,7 +37,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
             if (recipe) {
               this.recipe = recipe;
             }
-            this.isLoading = false;
             this.initForm();
           })
         );
@@ -50,7 +48,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.subscriptions.clear();
   }
 
+  public canSave(): boolean {
+    return this.form.dirty && this.form.valid;
+  }
+
   public onSaveButtonPressed(): void {
+    if (!this.canSave()) {
+      return;
+    }
     this.isLoading = true;
     if (this.isCreating) {
       this.create();
@@ -68,6 +73,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       ingredients: this.fb.array([]),
       steps: this.fb.array([]),
     });
+
+    this.isLoading = false;
   }
 
   private create(): void {
