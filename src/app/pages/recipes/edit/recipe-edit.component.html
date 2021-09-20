@@ -60,6 +60,55 @@
         ></textarea>
       </div>
     </div>
+
+    <div class="form-row">
+      <div class="form-array" formArrayName="ingredients">
+        <h3>Ingredientes</h3>
+
+        <div class="ingredient-form-grid" *ngIf="ingredients.controls?.length">
+          <ng-container
+            *ngFor="let ingredientForm of ingredients.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <input
+              type="number"
+              placeholder="Qnt."
+              formControlName="quantity"
+            />
+
+            <input type="text" placeholder="Un." formControlName="unit" />
+
+            <input type="text" placeholder="Nome" formControlName="quantity" />
+
+            <rh-button
+              type="secondary"
+              icon="trash"
+              (onClick)="onRemoveIngredientButtonPressed(i)"
+            ></rh-button>
+          </ng-container>
+        </div>
+
+        <rh-button
+          type="secondary"
+          icon="plus"
+          (onClick)="onAddIngredientButtonPressed()"
+        >
+          Adicionar ingrediente
+        </rh-button>
+      </div>
+
+      <div class="form-array">
+        <h3>Passos</h3>
+
+        <rh-button
+          type="secondary"
+          icon="plus"
+          (onClick)="onAddStepButtonPressed()"
+        >
+          Adicionar passo
+        </rh-button>
+      </div>
+    </div>
   </form>
 </ng-container>
 

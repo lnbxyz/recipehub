@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from 'src/app/tokens';
@@ -46,6 +46,41 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.clear();
+  }
+
+  public get ingredients(): FormArray {
+    return this.form.get('ingredients') as FormArray;
+  }
+
+  public get steps(): FormArray {
+    return this.form.get('steps') as FormArray;
+  }
+
+  public onAddIngredientButtonPressed(): void {
+    const ingredientForm = this.fb.group({
+      name: ['', Validators.required],
+      quantity: ['', Validators.required],
+      unit: ['', Validators.required],
+    });
+
+    this.ingredients.push(ingredientForm);
+  }
+
+  public onAddStepButtonPressed(): void {
+    const stepForm = this.fb.group({
+      // order: ['', Validators.required], // TODO
+      description: ['', Validators.required],
+    });
+
+    this.steps.push(stepForm);
+  }
+
+  public onRemoveIngredientButtonPressed(index: number): void {
+    this.ingredients.removeAt(index);
+  }
+
+  public onRemoveStepButtonPressed(index: number): void {
+    this.steps.removeAt(index);
   }
 
   public canSave(): boolean {
