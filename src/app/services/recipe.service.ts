@@ -12,6 +12,8 @@ export class RecipeService {
       name: 'Milkshake de Morango',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores eos vitae tempore explicabo laboriosam voluptatem ut blanditiis, perspiciatis animi mollitia hic provident nemo dignissimos iste id eaque fugit corporis culpa!',
+      servings: 2,
+      time: 5,
       ingredients: [
         {
           id: '7bed82fc-4f40-4572-a06f-3570173fa3ac',

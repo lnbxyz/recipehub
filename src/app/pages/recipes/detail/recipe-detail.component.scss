@@ -42,3 +42,11 @@
     gap: 1rem;
   }
 }
+
+.pseudo-comma {
+  > span + span {
+    &::before {
+      content: ", ";
+    }
+  }
+}
