@@ -77,4 +77,12 @@ export class RecipeService {
       delay(1000)
     );
   }
+
+  public create(recipe: Recipe): Observable<any> {
+    return of({}).pipe(delay(1000));
+  }
+
+  public update(recipe: Recipe): Observable<any> {
+    return of({}).pipe(delay(1000));
+  }
 }
