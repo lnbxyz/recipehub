@@ -6,16 +6,15 @@ button {
   border: none;
   border-radius: 0.5rem;
   height: 2.5rem;
+
+  font-size: 1.125rem;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+
   border: 1px solid hsla(0, 100%, 100%, 0.05);
 
   transition: box-shadow 0.1s ease-in-out, color 0.1s ease-in-out,
     background-color 0.1s ease-in-out;
-
-  > span {
-    font-size: 1.125rem;
-    font-weight: 500;
-    font-family: "Inter", sans-serif;
-  }
 
   > i {
     font-size: 1rem;
