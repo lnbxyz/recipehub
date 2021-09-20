@@ -51,12 +51,13 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       'delete',
       this.recipeService.delete(this.recipe.id).subscribe(
         // Success
-        (result) => {
+        () => {
           this.router.navigate(['../'], { relativeTo: this.route });
         },
         // Failure
-        (error) => {
+        () => {
           // TODO
+          this.isLoading = false;
           console.log('could not delete recipe');
         }
       )

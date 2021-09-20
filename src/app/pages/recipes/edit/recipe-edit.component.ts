@@ -148,12 +148,13 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           // Success
-          (result) => {
+          () => {
             this.router.navigate(['../'], { relativeTo: this.route });
           },
           // Failure
-          (error) => {
+          () => {
             // TODO
+            this.isLoading = false;
             console.log('could not create recipe');
           }
         )
@@ -181,12 +182,13 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           // Success
-          (result) => {
+          () => {
             this.router.navigate(['../'], { relativeTo: this.route });
           },
           // Failure
-          (error) => {
+          () => {
             // TODO
+            this.isLoading = false;
             console.log('could not update recipe');
           }
         )
