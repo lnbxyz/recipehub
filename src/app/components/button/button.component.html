@@ -1,4 +1,8 @@
-<button (click)="onClick.emit($event)" [class]="type">
+<button
+  [ngClass]="{ disabled: disabled }"
+  (click)="!disabled && onClick.emit($event)"
+  [class]="type"
+>
   <i *ngIf="icon" [class]="'fas fa-' + icon"></i>
   <span><ng-content></ng-content></span>
 </button>
