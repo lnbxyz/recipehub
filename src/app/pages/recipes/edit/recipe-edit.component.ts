@@ -109,6 +109,24 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       steps: this.fb.array([]),
     });
 
+    this.recipe?.ingredients?.forEach((ingredient) => {
+      this.ingredients.push(
+        this.fb.group({
+          name: [ingredient.name, Validators.required],
+          quantity: [ingredient.quantity, Validators.required],
+          unit: [ingredient.unit, Validators.required],
+        })
+      );
+    });
+
+    this.recipe?.steps?.forEach((step) => {
+      this.steps.push(
+        this.fb.group({
+          description: [step.description, Validators.required],
+        })
+      );
+    });
+
     this.isLoading = false;
   }
 
