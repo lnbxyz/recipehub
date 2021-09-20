@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
@@ -14,6 +14,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   private subscriptions = new SubscriptionManager();
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService
   ) {}
@@ -38,8 +39,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   public onEditButtonPressed(): void {
-    // TODO
-    console.log('edit button pressed');
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
   public onDeleteButtonPressed(): void {

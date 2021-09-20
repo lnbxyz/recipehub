@@ -1,13 +1,6 @@
 <div class="header">
   <h1>{{ isCreating ? "Nova receita" : "Editar receita" }}</h1>
   <div class="actions">
-    <rh-button
-      type="secondary"
-      icon="arrow-left"
-      (onClick)="onCancelButtonPressed()"
-    >
-      Voltar
-    </rh-button>
     <rh-button icon="save" (onClick)="onSaveButtonPressed()">
       Salvar
     </rh-button>

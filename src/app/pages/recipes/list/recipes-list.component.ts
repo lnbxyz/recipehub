@@ -28,8 +28,7 @@ export class RecipesListComponent implements OnInit, OnDestroy {
   }
 
   public onCreateButtonPressed(): void {
-    // TODO
-    console.log('create button pressed');
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 
   public onRecipeCardPressed(recipe: Recipe): void {
