@@ -54,10 +54,21 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 4rem;
 }
 
 .ingredient-form-grid {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1fr 2fr 4fr min-content;
+}
+
+.step-form-grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: min-content 1fr min-content;
+
+  > h4 {
+    line-height: 2.5rem;
+  }
 }

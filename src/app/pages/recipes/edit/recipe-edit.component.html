@@ -56,7 +56,6 @@
           name="description"
           formControlName="description"
           rows="5"
-          resize="vertical"
         ></textarea>
       </div>
     </div>
@@ -97,8 +96,28 @@
         </rh-button>
       </div>
 
-      <div class="form-array">
+      <div class="form-array" formArrayName="steps">
         <h3>Passos</h3>
+
+        <div class="step-form-grid" *ngIf="steps.controls?.length">
+          <ng-container
+            *ngFor="let stepForm of steps.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <h4>{{ i + 1 }}.</h4>
+            <input
+              type="text"
+              placeholder="Descrição"
+              formControlName="description"
+            />
+
+            <rh-button
+              type="secondary"
+              icon="trash"
+              (onClick)="onRemoveStepButtonPressed(i)"
+            ></rh-button>
+          </ng-container>
+        </div>
 
         <rh-button
           type="secondary"
