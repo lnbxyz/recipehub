@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe.service';
-import { Recipe } from 'src/app/tokens';
+import { Recipe, Step } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -68,7 +68,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   public onAddStepButtonPressed(): void {
     const stepForm = this.fb.group({
-      // order: ['', Validators.required], // TODO
       description: ['', Validators.required],
     });
 
@@ -88,6 +87,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   public onSaveButtonPressed(): void {
+    console.log();
     if (!this.canSave()) {
       return;
     }
@@ -122,8 +122,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,
           time: this.form.get('time')?.value,
-          // ingredients: null, // TODO
-          // steps: null, // TODO
+          ingredients: this.ingredients.value,
+          steps: this.steps.value.map((step: Step, index: number) => {
+            return { ...step, order: index };
+          }),
           // tags: null, // TODO
         })
         .subscribe(
@@ -153,8 +155,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,
           time: this.form.get('time')?.value,
-          // ingredients: null, // TODO
-          // steps: null, // TODO
+          ingredients: this.ingredients.value,
+          steps: this.steps.value.map((step: Step, index: number) => {
+            return { ...step, order: index };
+          }),
           // tags: null, // TODO
         })
         .subscribe(
