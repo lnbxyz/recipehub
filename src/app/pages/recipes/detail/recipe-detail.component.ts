@@ -9,7 +9,7 @@ import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager
   styleUrls: ['./recipe-detail.component.scss'],
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-  public recipe: Recipe = {};
+  public recipe?: Recipe;
   public isLoading = true;
   private subscriptions = new SubscriptionManager();
 

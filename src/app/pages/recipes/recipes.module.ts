@@ -7,6 +7,7 @@ import { RecipeCardComponent } from './card/recipe-card.component';
 import { TagModule } from 'src/app/components/tag/tag.module';
 import { RecipeDetailComponent } from './detail/recipe-detail.component';
 import { RecipeEditComponent } from './edit/recipe-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,12 @@ import { RecipeEditComponent } from './edit/recipe-edit.component';
     RecipeDetailComponent,
     RecipeEditComponent,
   ],
-  imports: [CommonModule, RecipesRoutingModule, ButtonModule, TagModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RecipesRoutingModule,
+    ButtonModule,
+    TagModule,
+  ],
 })
 export class RecipesModule {}

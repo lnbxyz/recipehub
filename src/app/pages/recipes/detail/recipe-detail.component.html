@@ -22,7 +22,7 @@
 
   <div class="tag-list" *ngIf="recipe?.tags?.length">
     <rh-tag
-      *ngFor="let tag of recipe.tags"
+      *ngFor="let tag of recipe?.tags"
       [name]="tag.name"
       [color]="tag.color"
     ></rh-tag>
@@ -32,7 +32,7 @@
     <div *ngIf="recipe?.ingredients?.length">
       <h2>Ingredientes</h2>
       <ul>
-        <li *ngFor="let ingredient of recipe.ingredients">
+        <li *ngFor="let ingredient of recipe?.ingredients">
           <b>{{ ingredient.quantity }} {{ ingredient.unit }}</b>
           {{ ingredient.name }}
         </li>
@@ -42,7 +42,7 @@
     <div *ngIf="recipe?.steps?.length">
       <h2>Passos</h2>
       <ol>
-        <li *ngFor="let step of recipe.steps">
+        <li *ngFor="let step of recipe?.steps">
           {{ step.description }}
         </li>
       </ol>

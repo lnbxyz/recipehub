@@ -7,7 +7,7 @@ import { Recipe } from 'src/app/tokens';
   styleUrls: ['./recipe-card.component.scss'],
 })
 export class RecipeCardComponent implements OnInit {
-  @Input() public recipe: Recipe = {};
+  @Input() public recipe?: Recipe;
 
   constructor() {}
 

@@ -36,3 +36,27 @@ ol {
   margin: unset;
   padding-inline-start: 1.5rem;
 }
+
+label {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  border: none;
+  background-color: var(--rh-color-background-secondary);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+textarea {
+  resize: none;
+}
+
+.required-indicator {
+  color: var(--rh-color-red);
+}

@@ -1,1 +1,65 @@
-<p>recipe-edit works! {{ isCreating ? "creating" : "editing" }}</p>
+<div class="header">
+  <h1>{{ isCreating ? "Nova receita" : "Editar receita" }}</h1>
+  <div class="actions">
+    <rh-button
+      type="secondary"
+      icon="arrow-left"
+      (onClick)="onCancelButtonPressed()"
+    >
+      Voltar
+    </rh-button>
+    <rh-button icon="save" (onClick)="onSaveButtonPressed()">
+      Salvar
+    </rh-button>
+  </div>
+</div>
+
+<form [formGroup]="form">
+  <div class="form-row">
+    <div class="form-control">
+      <label for="name">Nome <span class="required-indicator">*</span></label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        formControlName="name"
+        required
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="servings">Porções</label>
+      <input
+        type="number"
+        min="0"
+        id="servings"
+        name="servings"
+        formControlName="servings"
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="time">Preparo (minutos)</label>
+      <input
+        type="number"
+        min="0"
+        id="time"
+        name="time"
+        formControlName="time"
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-control">
+      <label for="description">Descrição</label>
+      <textarea
+        id="description"
+        name="description"
+        formControlName="description"
+        rows="5"
+        resize="vertical"
+      ></textarea>
+    </div>
+  </div>
+</form>
