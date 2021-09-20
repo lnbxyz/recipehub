@@ -6,12 +6,14 @@ import { ButtonModule } from 'src/app/components/button/button.module';
 import { RecipeCardComponent } from './card/recipe-card.component';
 import { TagModule } from 'src/app/components/tag/tag.module';
 import { RecipeDetailComponent } from './detail/recipe-detail.component';
+import { RecipeEditComponent } from './edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
     RecipesListComponent,
     RecipeCardComponent,
     RecipeDetailComponent,
+    RecipeEditComponent,
   ],
   imports: [CommonModule, RecipesRoutingModule, ButtonModule, TagModule],
 })
