@@ -1,4 +1,4 @@
 export interface Entity {
   /** GUID */
-  id?: string;
+  id: string;
 }

@@ -1,10 +1,10 @@
 <h2>{{ recipe?.name }}</h2>
 
-<p *ngIf="recipe?.description">{{ recipe.description }}</p>
+<p *ngIf="recipe?.description">{{ recipe?.description }}</p>
 
 <div class="tag-list" *ngIf="recipe?.tags?.length">
   <rh-tag
-    *ngFor="let tag of recipe.tags"
+    *ngFor="let tag of recipe?.tags"
     [name]="tag.name"
     [color]="tag.color"
   ></rh-tag>

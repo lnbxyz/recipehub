@@ -1,0 +1,138 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1>{{ isCreating ? "Nova receita" : "Editar receita" }}</h1>
+    <div class="actions">
+      <rh-button
+        icon="save"
+        [disabled]="!canSave()"
+        (onClick)="onSaveButtonPressed()"
+      >
+        Salvar
+      </rh-button>
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="form-row">
+      <div class="form-control">
+        <label for="name">Nome <span class="required-indicator">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          formControlName="name"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="servings">Porções</label>
+        <input
+          type="number"
+          min="0"
+          id="servings"
+          name="servings"
+          formControlName="servings"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="time">Preparo (minutos)</label>
+        <input
+          type="number"
+          min="0"
+          id="time"
+          name="time"
+          formControlName="time"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-control">
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          name="description"
+          formControlName="description"
+          rows="5"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-array" formArrayName="ingredients">
+        <h3>Ingredientes</h3>
+
+        <div class="ingredient-form-grid" *ngIf="ingredients.controls?.length">
+          <ng-container
+            *ngFor="let ingredientForm of ingredients.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <input
+              type="number"
+              placeholder="Qnt."
+              formControlName="quantity"
+            />
+
+            <input type="text" placeholder="Un." formControlName="unit" />
+
+            <input type="text" placeholder="Nome" formControlName="name" />
+
+            <rh-button
+              type="secondary"
+              icon="trash"
+              (onClick)="onRemoveIngredientButtonPressed(i)"
+            ></rh-button>
+          </ng-container>
+        </div>
+
+        <rh-button
+          type="secondary"
+          icon="plus"
+          (onClick)="onAddIngredientButtonPressed()"
+        >
+          Adicionar ingrediente
+        </rh-button>
+      </div>
+
+      <div class="form-array" formArrayName="steps">
+        <h3>Passos</h3>
+
+        <div class="step-form-grid" *ngIf="steps.controls?.length">
+          <ng-container
+            *ngFor="let stepForm of steps.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <h4>{{ i + 1 }}.</h4>
+            <input
+              type="text"
+              placeholder="Descrição"
+              formControlName="description"
+            />
+
+            <rh-button
+              type="secondary"
+              icon="trash"
+              (onClick)="onRemoveStepButtonPressed(i)"
+            ></rh-button>
+          </ng-container>
+        </div>
+
+        <rh-button
+          type="secondary"
+          icon="plus"
+          (onClick)="onAddStepButtonPressed()"
+        >
+          Adicionar passo
+        </rh-button>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</ng-template>

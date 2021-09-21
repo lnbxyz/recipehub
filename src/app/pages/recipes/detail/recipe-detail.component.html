@@ -1,0 +1,64 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1>{{ recipe?.name }}</h1>
+    <div class="actions">
+      <!-- TODO: show only if current user equals recipe userId -->
+
+      <rh-button
+        type="secondary"
+        icon="trash"
+        color="var(--rh-color-red)"
+        (onClick)="onDeleteButtonPressed()"
+      >
+        Apagar
+      </rh-button>
+      <rh-button type="secondary" icon="pen" (onClick)="onEditButtonPressed()">
+        Editar
+      </rh-button>
+    </div>
+  </div>
+
+  <h3 class="pseudo-comma" *ngIf="recipe?.servings || recipe?.time">
+    <span *ngIf="recipe?.servings">{{ recipe?.servings }} porções</span>
+    <span *ngIf="recipe?.time">{{ recipe?.time }} minuto(s)</span>
+  </h3>
+
+  <p *ngIf="recipe?.description">{{ recipe?.description }}</p>
+
+  <div class="tag-list" *ngIf="recipe?.tags?.length">
+    <rh-tag
+      *ngFor="let tag of recipe?.tags"
+      [name]="tag.name"
+      [color]="tag.color"
+    ></rh-tag>
+  </div>
+
+  <div class="details">
+    <div>
+      <ng-container *ngIf="recipe?.ingredients?.length">
+        <h2>Ingredientes</h2>
+        <ul>
+          <li *ngFor="let ingredient of recipe?.ingredients">
+            <b>{{ ingredient.quantity }} {{ ingredient.unit }}</b>
+            {{ ingredient.name }}
+          </li>
+        </ul>
+      </ng-container>
+    </div>
+
+    <div *ngIf="recipe?.steps?.length">
+      <h2>Passos</h2>
+      <ol>
+        <li *ngFor="let step of recipe?.steps">
+          {{ step.description }}
+        </li>
+      </ol>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</ng-template>

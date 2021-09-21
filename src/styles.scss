@@ -6,6 +6,7 @@
   --rh-color-background-main: hsla(240, 20%, 99%, 1);
   --rh-color-background-secondary: hsla(240, 20%, 94%, 1);
   --rh-color-accent: hsla(234, 100%, 66%, 1);
+  --rh-color-red: hsla(13, 90%, 58%, 1);
 }
 
 body {
@@ -27,4 +28,37 @@ h5,
 h6,
 p {
   margin: unset;
+  padding: unset;
+}
+
+ul,
+ol {
+  margin: unset;
+  padding-inline-start: 1.5rem;
+}
+
+label {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  border: none;
+  background-color: var(--rh-color-background-secondary);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  min-height: 2.5rem;
+  color: var(--rh-color-text-secondary);
+}
+
+textarea {
+  resize: none;
+}
+
+.required-indicator {
+  color: var(--rh-color-red);
 }
