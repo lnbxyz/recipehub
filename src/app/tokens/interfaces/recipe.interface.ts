@@ -1,5 +1,5 @@
 import { Entity } from './entity.interface';
-import { AuditedEntity } from './audited-entity.inferface';
+import { AuditedEntity } from './audited-entity.interface';
 import { MustHaveOwner } from './must-have-owner.interface';
 import { Ingredient } from './ingredient.interface';
 import { Step } from './step.interface';
