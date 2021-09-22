@@ -1,4 +1,13 @@
-<p>login works!</p>
+<div class="login-container">
+  <h1 class="logo">RecipeHub</h1>
 
-<button (click)="mockLogin()">login</button>
-<button (click)="mockLogout()">logout</button>
+  <form [formGroup]="form">
+    <input type="text" placeholder="Usuário" formControlName="username" />
+
+    <input type="password" placeholder="Senha" formControlName="password" />
+  </form>
+
+  <rh-button sizing="fill" [disabled]="!form.valid" (onClick)="login()">
+    Login
+  </rh-button>
+</div>

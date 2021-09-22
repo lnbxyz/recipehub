@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -7,18 +8,24 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  public form!: FormGroup;
+  constructor(private userService: UserService, private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
-
-  mockLogin() {
-    this.userService.login({
-      username: 'lunabunna',
-      password: '123qwe',
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
-  mockLogout() {
-    this.userService.logout();
+  public login(): void {
+    if (!this.form.valid) {
+      return;
+    }
+
+    this.userService.login({
+      username: this.form.get('username')?.value,
+      password: this.form.get('password')?.value,
+    });
   }
 }
