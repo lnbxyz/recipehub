@@ -52,4 +52,15 @@ export class UserService {
     localStorage.removeItem('login');
     this.isLoggedIn.next(false);
   }
+
+  public doLoginCheck(): void {
+    if (this.currentUser?.username && this.currentUser?.password) {
+      this.login({
+        username: this.currentUser.username,
+        password: this.currentUser.password,
+      });
+    } else {
+      this.logout();
+    }
+  }
 }
