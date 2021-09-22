@@ -6,4 +6,17 @@
       <a [routerLink]="item.link" routerLinkActive="active">{{ item.name }}</a>
     </li>
   </ul>
+
+  <div class="user-info">
+    <h3>{{ userService.currentUser?.name }}</h3>
+
+    <rh-button
+      icon="sign-out-alt"
+      type="secondary"
+      color="var(--rh-color-red)"
+      (onClick)="userService.logout()"
+    >
+      Sair
+    </rh-button>
+  </div>
 </nav>

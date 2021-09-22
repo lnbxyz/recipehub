@@ -32,3 +32,10 @@ li > a.active {
   color: var(--rh-color-accent);
   border-bottom: 2px solid var(--rh-color-accent);
 }
+
+.user-info {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  margin-inline-start: auto;
+}
