@@ -3,17 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'feed',
+    loadChildren: () => import('./feed/feed.module').then((m) => m.FeedModule),
+  },
+  {
     path: 'recipes',
     loadChildren: () =>
       import('./recipes/recipes.module').then((m) => m.RecipesModule),
   },
   {
-    path: 'feed',
-    loadChildren: () => import('./feed/feed.module').then((m) => m.FeedModule),
+    path: '',
+    redirectTo: 'feed',
   },
   {
     path: '**',
-    redirectTo: 'recipes',
+    redirectTo: '',
   },
 ];
 

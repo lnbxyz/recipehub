@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './components/navbar/navbar.module';
-import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,8 +11,4 @@ import { UserService } from './services/user.service';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(private user: UserService) {
-    this.user.doLoginCheck();
-  }
-}
+export class AppModule {}

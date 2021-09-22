@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../tokens';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  public isLoggedIn = new Subject<boolean>();
-
   public get currentUser(): User | undefined {
     const data = localStorage.getItem('login');
     return data ? JSON.parse(data) : undefined;
   }
 
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public create(user: User): Observable<any> {
     return this.http.post(`${environment.apiPath}/user`, user);
@@ -34,7 +33,7 @@ export class UserService {
     username: string;
     password: string;
   }): void {
-    this.logout();
+    localStorage.removeItem('login');
     this.http
       .post(`${environment.apiPath}/user/login`, {
         username,
@@ -43,24 +42,13 @@ export class UserService {
       .subscribe((result) => {
         if (result) {
           localStorage.setItem('login', JSON.stringify(result));
-          this.isLoggedIn.next(true);
+          this.router.navigate(['']);
         }
       });
   }
 
   public logout(): void {
     localStorage.removeItem('login');
-    this.isLoggedIn.next(false);
-  }
-
-  public doLoginCheck(): void {
-    if (this.currentUser?.username && this.currentUser?.password) {
-      this.login({
-        username: this.currentUser.username,
-        password: this.currentUser.password,
-      });
-    } else {
-      this.logout();
-    }
+    this.router.navigate(['auth']);
   }
 }
