@@ -63,3 +63,14 @@ textarea {
 .required-indicator {
   color: var(--rh-color-red);
 }
+
+a[ng-reflect-router-link] {
+  color: var(--rh-color-text-secondary);
+  text-decoration: underline 2px;
+  font-weight: 600;
+  transition: color 0.1s ease-in-out;
+
+  &:hover {
+    color: var(--rh-color-accent);
+  }
+}
