@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit, OnDestroy {
+  public isLoading = false;
   public form!: FormGroup;
   private subscriptions = new SubscriptionManager();
   constructor(private userService: UserService, private fb: FormBuilder) {}
@@ -31,6 +32,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if (!this.form.valid) {
       return;
     }
+    this.isLoading = true;
 
     this.subscriptions.add(
       'create',
@@ -52,8 +54,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
           },
           // Failure
           () => {
-            // TODO
-            console.log('could not create user');
+            this.isLoading = false;
+            // TODO implement better error handling
+            alert('Não foi possível criar o usuário');
           }
         )
     );

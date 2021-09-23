@@ -153,9 +153,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           },
           // Failure
           () => {
-            // TODO
             this.isLoading = false;
-            console.log('could not create recipe');
+            // TODO implement better error handling
+            alert('Não foi possível criar a receita');
           }
         )
     );
@@ -187,9 +187,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           },
           // Failure
           () => {
-            // TODO
             this.isLoading = false;
-            console.log('could not update recipe');
+            // TODO implement better error handling
+            alert('Não foi possivel editar a receita');
           }
         )
     );

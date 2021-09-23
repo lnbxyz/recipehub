@@ -1,21 +1,27 @@
-<div class="sign-up-container">
-  <h1 class="logo">RecipeHub</h1>
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="sign-up-container">
+    <h1 class="logo">RecipeHub</h1>
 
-  <form [formGroup]="form">
-    <input type="text" placeholder="Nome" formControlName="name" />
-    <input type="text" placeholder="E-mail" formControlName="email" />
-    <input
-      type="text"
-      placeholder="Nome de usuário"
-      formControlName="username"
-    />
+    <form [formGroup]="form">
+      <input type="text" placeholder="Nome" formControlName="name" />
+      <input type="text" placeholder="E-mail" formControlName="email" />
+      <input
+        type="text"
+        placeholder="Nome de usuário"
+        formControlName="username"
+      />
 
-    <input type="password" placeholder="Senha" formControlName="password" />
-  </form>
+      <input type="password" placeholder="Senha" formControlName="password" />
+    </form>
 
-  <rh-button sizing="fill" [disabled]="!form.valid" (onClick)="create()">
-    Criar
-  </rh-button>
+    <rh-button sizing="fill" [disabled]="!form.valid" (onClick)="create()">
+      Criar
+    </rh-button>
 
-  <a [routerLink]="['../login']">Já possuo uma conta</a>
-</div>
+    <a [routerLink]="['../login']">Já possuo uma conta</a>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <i class="fas fa-spinner fa-spin"></i>
+</ng-template>
