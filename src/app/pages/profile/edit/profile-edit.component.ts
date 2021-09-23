@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { UserService } from 'src/app/services/user.service';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 
@@ -18,7 +19,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     public userService: UserService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -74,26 +76,28 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   public onDeleteButtonPressed(): void {
-    if (!this.userService.currentUser) {
-      return;
-    }
+    this.dialog.open();
+    return;
+    // if (!this.userService.currentUser) {
+    //   return;
+    // }
 
-    this.isLoading = true;
+    // this.isLoading = true;
 
-    this.subscriptions.add(
-      'delete',
-      this.userService.delete(this.userService.currentUser?.id).subscribe(
-        // Success
-        () => {
-          // Handled by service
-        },
-        // Failure
-        () => {
-          this.isLoading = false;
-          // TODO implement better error handling
-          alert('Não foi possível apagar o usuário');
-        }
-      )
-    );
+    // this.subscriptions.add(
+    //   'delete',
+    //   this.userService.delete(this.userService.currentUser?.id).subscribe(
+    //     // Success
+    //     () => {
+    //       // Handled by service
+    //     },
+    //     // Failure
+    //     () => {
+    //       this.isLoading = false;
+    //       // TODO implement better error handling
+    //       alert('Não foi possível apagar o usuário');
+    //     }
+    //   )
+    // );
   }
 }
