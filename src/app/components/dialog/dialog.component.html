@@ -1,1 +1,16 @@
-<p>dialog works!</p>
+<div class="overlay" (click)="close()">
+  <div class="dialog">
+    <h2>{{ message }}</h2>
+    <div class="actions" *ngIf="actions.length">
+      <rh-button
+        *ngFor="let action of actions"
+        [icon]="action.icon"
+        [color]="action.color"
+        [type]="action.type || 'secondary'"
+        (onClick)="close(action.value)"
+      >
+        {{ action.text }}
+      </rh-button>
+    </div>
+  </div>
+</div>

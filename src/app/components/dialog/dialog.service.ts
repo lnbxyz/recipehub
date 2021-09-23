@@ -6,6 +6,9 @@ import {
   EmbeddedViewRef,
   ComponentRef,
 } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { DialogAction } from 'src/app/tokens';
 import { DialogComponent } from './dialog.component';
 
 @Injectable()
@@ -18,14 +21,38 @@ export class DialogService {
     private injector: Injector
   ) {}
 
-  public open() {
-    this.append();
+  public open({
+    message,
+    actions,
+  }: {
+    message: string;
+    actions?: DialogAction[];
+  }): Observable<string | undefined> {
+    const closeSubject = new Subject<string | undefined>();
+    this.append({ message, actions, closeSubject });
+    return closeSubject.asObservable().pipe(
+      tap(() => {
+        this.remove();
+      })
+    );
   }
 
-  private append() {
+  private append({
+    message,
+    actions,
+    closeSubject,
+  }: {
+    message: string;
+    actions?: DialogAction[];
+    closeSubject: Subject<string | undefined>;
+  }) {
     const componentFactory =
       this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
     const componentRef = componentFactory.create(this.injector);
+    componentRef.instance.message = message;
+    componentRef.instance.actions = actions ?? [];
+    componentRef.instance.closeSubject = closeSubject;
+
     this.appRef.attachView(componentRef.hostView);
 
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>)

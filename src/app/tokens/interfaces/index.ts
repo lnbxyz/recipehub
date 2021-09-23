@@ -1,4 +1,5 @@
 export * from './audited-entity.interface';
+export * from './dialog-action.interface';
 export * from './entity.interface';
 export * from './ingredient.interface';
 export * from './must-have-owner.interface';
