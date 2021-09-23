@@ -56,9 +56,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         },
         // Failure
         () => {
-          // TODO
           this.isLoading = false;
-          console.log('could not delete recipe');
+          // TODO implement better error handling
+          alert('Não foi possível apagar a receita');
         }
       )
     );
