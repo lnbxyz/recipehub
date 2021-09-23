@@ -33,9 +33,41 @@ li > a.active {
   border-bottom: 2px solid var(--rh-color-accent);
 }
 
+.user-container {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 1rem;
+  margin-inline-start: auto;
+}
+
 .user-info {
   display: flex;
-  gap: 1rem;
-  align-items: end;
-  margin-inline-start: auto;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--rh-color-text-secondary);
+  background-color: var(--rh-color-background-secondary);
+  user-select: none;
+}
+
+.user-link {
+  color: var(--rh-color-text-secondary);
+  font-weight: 600;
+  transition: color 0.1s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--rh-color-accent);
+  }
 }

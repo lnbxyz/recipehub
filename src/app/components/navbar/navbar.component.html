@@ -7,16 +7,14 @@
     </li>
   </ul>
 
-  <div class="user-info">
-    <h3>{{ userService.currentUser?.name }}</h3>
+  <div class="user-container">
+    <div class="user-info">
+      <h3>{{ userService.currentUser?.name }}</h3>
+      <p class="user-link" (click)="userService.logout()">Sair</p>
+    </div>
 
-    <rh-button
-      icon="sign-out-alt"
-      type="secondary"
-      color="var(--rh-color-red)"
-      (onClick)="userService.logout()"
-    >
-      Sair
-    </rh-button>
+    <div class="user-avatar">
+      <span>{{ userService.currentUser?.name?.charAt(0) }}</span>
+    </div>
   </div>
 </nav>

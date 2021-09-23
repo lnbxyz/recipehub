@@ -6,7 +6,7 @@ import { ButtonModule } from '../button/button.module';
 
 @NgModule({
   declarations: [NavbarComponent],
-  imports: [CommonModule, RouterModule, ButtonModule],
+  imports: [CommonModule, RouterModule],
   exports: [NavbarComponent],
 })
 export class NavbarModule {}
