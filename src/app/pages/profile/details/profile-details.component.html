@@ -1,1 +1,12 @@
-<p>profile-details works!</p>
+<div class="header">
+  <h1>{{ userService?.currentUser?.name }}</h1>
+
+  <rh-button icon="edit" type="secondary" (onClick)="onEditInfoButtonPressed()">
+    Editar Informações
+  </rh-button>
+</div>
+
+<div class="soon-message">
+  <i class="far fa-grin-beam-sweat"></i>
+  <span>em breve!</span>
+</div>
