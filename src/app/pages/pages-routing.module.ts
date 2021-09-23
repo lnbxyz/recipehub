@@ -12,6 +12,11 @@ const routes: Routes = [
       import('./recipes/recipes.module').then((m) => m.RecipesModule),
   },
   {
+    path: 'profile',
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfileModule),
+  },
+  {
     path: '',
     redirectTo: 'recipes',
   },
