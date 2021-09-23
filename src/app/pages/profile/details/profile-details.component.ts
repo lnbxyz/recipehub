@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -7,11 +8,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile-details.component.scss'],
 })
 export class ProfileDetailsComponent implements OnInit {
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {}
 
   public onEditInfoButtonPressed(): void {
-    // TODO
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 }
