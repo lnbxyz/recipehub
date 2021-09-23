@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../tokens';
 
@@ -32,19 +33,21 @@ export class UserService {
   }: {
     username: string;
     password: string;
-  }): void {
+  }): Observable<User> {
     localStorage.removeItem('login');
-    this.http
-      .post(`${environment.apiPath}/user/login`, {
+    return this.http
+      .post<User>(`${environment.apiPath}/user/login`, {
         username,
         password,
       })
-      .subscribe((result) => {
-        if (result) {
-          localStorage.setItem('login', JSON.stringify(result));
-          this.router.navigate(['']);
-        }
-      });
+      .pipe(
+        tap((result) => {
+          if (result) {
+            localStorage.setItem('login', JSON.stringify(result));
+            this.router.navigate(['']);
+          }
+        })
+      );
   }
 
   public logout(): void {
