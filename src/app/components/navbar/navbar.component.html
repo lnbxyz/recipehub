@@ -10,7 +10,9 @@
   <div class="user-container">
     <div class="user-info">
       <h3>{{ userService.currentUser?.name }}</h3>
-      <p class="user-link" (click)="userService.logout()">Sair</p>
+      <p class="user-link" (click)="userService.logout()">
+        Sair <i class="fas fa-sign-out-alt"></i>
+      </p>
     </div>
 
     <div class="user-avatar">
