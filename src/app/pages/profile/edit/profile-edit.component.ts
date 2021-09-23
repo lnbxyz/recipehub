@@ -72,4 +72,28 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
         )
     );
   }
+
+  public onDeleteButtonPressed(): void {
+    if (!this.userService.currentUser) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.subscriptions.add(
+      'delete',
+      this.userService.delete(this.userService.currentUser?.id).subscribe(
+        // Success
+        () => {
+          // Handled by service
+        },
+        // Failure
+        () => {
+          this.isLoading = false;
+          // TODO implement better error handling
+          alert('Não foi possível apagar o usuário');
+        }
+      )
+    );
+  }
 }

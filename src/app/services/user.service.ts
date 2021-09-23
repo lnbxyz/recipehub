@@ -30,7 +30,11 @@ export class UserService {
   }
 
   public delete(id: string): Observable<any> {
-    return this.http.delete(`${environment.apiPath}/user/${id}`);
+    return this.http.delete(`${environment.apiPath}/user/${id}`).pipe(
+      tap(() => {
+        this.logout();
+      })
+    );
   }
 
   public login({

@@ -11,6 +11,12 @@
   flex-wrap: wrap;
 }
 
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .loading {
   padding: 2rem;
   font-size: 2rem;
