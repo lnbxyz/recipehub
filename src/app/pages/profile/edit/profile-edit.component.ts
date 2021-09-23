@@ -24,7 +24,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: [this.userService.currentUser?.name, Validators.required],
-      email: [this.userService.currentUser?.email, Validators.required],
+      email: [
+        this.userService.currentUser?.email,
+        [Validators.required, Validators.email],
+      ],
       username: [this.userService.currentUser?.username, Validators.required],
       password: [this.userService.currentUser?.password, Validators.required],
     });
