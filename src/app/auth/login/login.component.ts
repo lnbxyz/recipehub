@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { UserService } from 'src/app/services/user.service';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 
@@ -12,7 +13,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   public isLoading = false;
   public form!: FormGroup;
   private subscriptions = new SubscriptionManager();
-  constructor(private userService: UserService, private fb: FormBuilder) {}
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    private dialog: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -46,10 +51,21 @@ export class LoginComponent implements OnInit, OnDestroy {
           // Failure
           () => {
             this.isLoading = false;
-            // TODO implement better error handling
-            alert('Não foi possível realizar o login');
+            this.showErrorDialog('Não foi possível realizar o login');
           }
         )
+    );
+  }
+
+  private showErrorDialog(message: string): void {
+    this.subscriptions.add(
+      'error-dialog',
+      this.dialog
+        .open({
+          message: message,
+          actions: [{ text: 'OK' }],
+        })
+        .subscribe()
     );
   }
 }

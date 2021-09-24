@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
@@ -16,7 +17,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -57,8 +59,15 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         // Failure
         () => {
           this.isLoading = false;
-          // TODO implement better error handling
-          alert('Não foi possível apagar a receita');
+          this.subscriptions.add(
+            'error-dialog',
+            this.dialog
+              .open({
+                message: 'Não foi possível apagar a receita',
+                actions: [{ text: 'OK' }],
+              })
+              .subscribe()
+          );
         }
       )
     );

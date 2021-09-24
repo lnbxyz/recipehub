@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { UserService } from 'src/app/services/user.service';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 
@@ -18,7 +19,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     public userService: UserService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -66,14 +68,42 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           // Failure
           () => {
             this.isLoading = false;
-            // TODO implement better error handling
-            alert('Não foi possível alterar as informações do usuário');
+            this.showErrorDialog(
+              'Não foi possível alterar as informações do usuário'
+            );
           }
         )
     );
   }
 
   public onDeleteButtonPressed(): void {
+    this.subscriptions.add(
+      'delete-dialog',
+      this.dialog
+        .open({
+          message: 'Esta ação não pode ser revertida',
+          actions: [
+            {
+              text: 'Voltar',
+            },
+            {
+              text: 'Apagar mesmo assim',
+              value: 'confirm',
+              type: 'primary',
+              icon: 'trash',
+              color: 'var(--rh-color-red)',
+            },
+          ],
+        })
+        .subscribe((result) => {
+          if (result === 'confirm') {
+            this.delete();
+          }
+        })
+    );
+  }
+
+  private delete(): void {
     if (!this.userService.currentUser) {
       return;
     }
@@ -82,18 +112,24 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(
       'delete',
-      this.userService.delete(this.userService.currentUser?.id).subscribe(
-        // Success
-        () => {
-          // Handled by service
-        },
-        // Failure
-        () => {
+      this.userService.delete(this.userService.currentUser?.id).subscribe({
+        error: () => {
           this.isLoading = false;
-          // TODO implement better error handling
-          alert('Não foi possível apagar o usuário');
-        }
-      )
+          this.showErrorDialog('Não foi possível apagar o usuário');
+        },
+      })
+    );
+  }
+
+  private showErrorDialog(message: string): void {
+    this.subscriptions.add(
+      'error-dialog',
+      this.dialog
+        .open({
+          message: message,
+          actions: [{ text: 'OK' }],
+        })
+        .subscribe()
     );
   }
 }
