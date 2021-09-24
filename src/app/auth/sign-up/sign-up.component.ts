@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { UserService } from 'src/app/services/user.service';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,7 +19,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -61,8 +63,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
           // Failure
           () => {
             this.isLoading = false;
-            // TODO implement better error handling
-            alert('Não foi possível criar o usuário');
+            this.showErrorDialog('Não foi possível criar o usuário');
           }
         )
     );
@@ -82,18 +83,34 @@ export class SignUpComponent implements OnInit, OnDestroy {
           username: username,
           password: password,
         })
-        .subscribe(
-          // Success
-          () => {
-            // Handled by service
+        .subscribe({
+          error: () => {
+            this.subscriptions.add(
+              'error-dialog',
+              this.dialog
+                .open({
+                  message:
+                    'Não foi possível realizar o login após criar a conta',
+                  actions: [{ text: 'OK' }],
+                })
+                .subscribe(() => {
+                  this.router.navigate(['auth']);
+                })
+            );
           },
-          // Failure
-          () => {
-            // TODO implement better error handling
-            alert('Não foi possível realizar o login após criar a conta');
-            this.router.navigate(['auth']);
-          }
-        )
+        })
+    );
+  }
+
+  private showErrorDialog(message: string): void {
+    this.subscriptions.add(
+      'error-dialog',
+      this.dialog
+        .open({
+          message: message,
+          actions: [{ text: 'OK' }],
+        })
+        .subscribe()
     );
   }
 }

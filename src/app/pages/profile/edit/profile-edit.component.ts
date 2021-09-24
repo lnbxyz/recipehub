@@ -68,36 +68,68 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           // Failure
           () => {
             this.isLoading = false;
-            // TODO implement better error handling
-            alert('Não foi possível alterar as informações do usuário');
+            this.showErrorDialog(
+              'Não foi possível alterar as informações do usuário'
+            );
           }
         )
     );
   }
 
   public onDeleteButtonPressed(): void {
-    this.dialog.open();
-    return;
-    // if (!this.userService.currentUser) {
-    //   return;
-    // }
+    this.subscriptions.add(
+      'delete-dialog',
+      this.dialog
+        .open({
+          message: 'Esta ação não pode ser revertida',
+          actions: [
+            {
+              text: 'Voltar',
+            },
+            {
+              text: 'Apagar mesmo assim',
+              value: 'confirm',
+              type: 'primary',
+              icon: 'trash',
+              color: 'var(--rh-color-red)',
+            },
+          ],
+        })
+        .subscribe((result) => {
+          if (result === 'confirm') {
+            this.delete();
+          }
+        })
+    );
+  }
 
-    // this.isLoading = true;
+  private delete(): void {
+    if (!this.userService.currentUser) {
+      return;
+    }
 
-    // this.subscriptions.add(
-    //   'delete',
-    //   this.userService.delete(this.userService.currentUser?.id).subscribe(
-    //     // Success
-    //     () => {
-    //       // Handled by service
-    //     },
-    //     // Failure
-    //     () => {
-    //       this.isLoading = false;
-    //       // TODO implement better error handling
-    //       alert('Não foi possível apagar o usuário');
-    //     }
-    //   )
-    // );
+    this.isLoading = true;
+
+    this.subscriptions.add(
+      'delete',
+      this.userService.delete(this.userService.currentUser?.id).subscribe({
+        error: () => {
+          this.isLoading = false;
+          this.showErrorDialog('Não foi possível apagar o usuário');
+        },
+      })
+    );
+  }
+
+  private showErrorDialog(message: string): void {
+    this.subscriptions.add(
+      'error-dialog',
+      this.dialog
+        .open({
+          message: message,
+          actions: [{ text: 'OK' }],
+        })
+        .subscribe()
+    );
   }
 }

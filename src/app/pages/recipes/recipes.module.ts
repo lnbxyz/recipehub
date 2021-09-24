@@ -8,6 +8,7 @@ import { TagModule } from 'src/app/components/tag/tag.module';
 import { RecipeDetailComponent } from './detail/recipe-detail.component';
 import { RecipeEditComponent } from './edit/recipe-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from 'src/app/components/dialog/dialog.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RecipesRoutingModule,
     ButtonModule,
     TagModule,
+    DialogModule,
   ],
 })
 export class RecipesModule {}

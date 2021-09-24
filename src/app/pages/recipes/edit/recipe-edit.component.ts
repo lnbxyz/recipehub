@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe, Step } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
@@ -21,7 +22,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private dialog: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -154,8 +156,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           // Failure
           () => {
             this.isLoading = false;
-            // TODO implement better error handling
-            alert('Não foi possível criar a receita');
+            this.showErrorDialog('Não foi possível criar a receita');
           }
         )
     );
@@ -188,10 +189,21 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           // Failure
           () => {
             this.isLoading = false;
-            // TODO implement better error handling
-            alert('Não foi possivel editar a receita');
+            this.showErrorDialog('Não foi possivel editar a receita');
           }
         )
+    );
+  }
+
+  private showErrorDialog(message: string): void {
+    this.subscriptions.add(
+      'error-dialog',
+      this.dialog
+        .open({
+          message: message,
+          actions: [{ text: 'OK' }],
+        })
+        .subscribe()
     );
   }
 }
