@@ -1,0 +1,76 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1>{{ userService?.currentUser?.name }}</h1>
+
+    <div class="actions">
+      <rh-button
+        icon="trash"
+        type="secondary"
+        color="var(--rh-color-red)"
+        (onClick)="onDeleteButtonPressed()"
+      >
+        Apagar minha conta
+      </rh-button>
+
+      <rh-button
+        icon="save"
+        [disabled]="!canSave()"
+        (onClick)="onSaveButtonPressed()"
+      >
+        Salvar
+      </rh-button>
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="form-control">
+      <label for="name">Nome</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        formControlName="name"
+        required
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="email">E-mail</label>
+      <input
+        type="text"
+        id="email"
+        name="email"
+        formControlName="email"
+        required
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="username">Nome de usuário</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        formControlName="username"
+        required
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="password">Senha</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+        required
+      />
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</ng-template>

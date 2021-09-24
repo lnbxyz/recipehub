@@ -16,6 +16,10 @@ export class NavbarComponent implements OnInit {
       name: 'Minhas Receitas',
       link: '/recipes',
     },
+    {
+      name: 'Perfil',
+      link: '/profile',
+    },
   ];
 
   constructor(public userService: UserService) {}
