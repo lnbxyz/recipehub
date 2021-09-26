@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
       link: '/feed',
     },
     {
-      name: 'Minhas Receitas',
+      name: 'Receitas',
       link: '/recipes',
     },
     {

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { UserService } from 'src/app/services/user.service';
 import { Recipe } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 
@@ -18,7 +19,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    public userService: UserService
   ) {}
 
   ngOnInit(): void {

@@ -70,7 +70,13 @@ a[ng-reflect-router-link] {
   font-weight: 600;
   transition: color 0.1s ease-in-out;
 
-  &:hover {
+  &:hover,
+  &.subtle:hover {
     color: var(--rh-color-accent);
+  }
+
+  &.subtle {
+    color: unset;
+    text-decoration: none;
   }
 }
