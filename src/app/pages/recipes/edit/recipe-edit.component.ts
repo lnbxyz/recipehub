@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeService } from 'src/app/services/recipe.service';
-import { Recipe, Step } from 'src/app/tokens';
+import { Ingredient, Recipe, Step } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -142,10 +142,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,
           time: this.form.get('time')?.value,
-          ingredients: this.ingredients.value,
-          steps: this.steps.value.map((step: Step, index: number) => {
-            return { ...step, order: index };
-          }),
+          ingredients: (this.ingredients.value as Ingredient[]).map<Ingredient>(
+            (ingredient: Ingredient) => {
+              return { ...ingredient, id: uuidv4() };
+            }
+          ),
+          steps: (this.steps.value as Step[]).map<Step>(
+            (step: Step, index: number) => {
+              return { ...step, order: index, id: uuidv4() };
+            }
+          ),
           // tags: null, // TODO
         })
         .subscribe(
@@ -175,10 +181,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,
           time: this.form.get('time')?.value,
-          ingredients: this.ingredients.value,
-          steps: this.steps.value.map((step: Step, index: number) => {
-            return { ...step, order: index };
-          }),
+          ingredients: (this.ingredients.value as Ingredient[]).map<Ingredient>(
+            (ingredient: Ingredient) => {
+              return { ...ingredient, id: ingredient.id || uuidv4() };
+            }
+          ),
+          steps: (this.steps.value as Step[]).map<Step>(
+            (step: Step, index: number) => {
+              return { ...step, order: index, id: step.id || uuidv4() };
+            }
+          ),
           // tags: null, // TODO
         })
         .subscribe(
