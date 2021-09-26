@@ -1,1 +1,6 @@
-<p>article-card works!</p>
+<div class="author">
+  <h4>{{ article?.user?.name }}</h4>
+</div>
+<h2 class="clamp">{{ article?.name }}</h2>
+<p class="clamp">{{ article?.description }}</p>
+<h4 *ngFor="let recipe of article?.recipes">{{ recipe.name }}</h4>

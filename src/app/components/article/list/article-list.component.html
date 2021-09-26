@@ -1,11 +1,11 @@
 <ng-container *ngIf="!isLoading; else loading">
-  <ng-container *ngIf="articles?.length; else emptyMessage">
+  <div class="list" *ngIf="articles?.length; else emptyMessage">
     <rh-article-card
       *ngFor="let article of articles"
       [article]="article"
       (click)="onCardPressed(article)"
     ></rh-article-card>
-  </ng-container>
+  </div>
 </ng-container>
 
 <ng-template #emptyMessage>

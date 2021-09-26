@@ -1,3 +1,9 @@
+.list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 .loading {
   padding: 2rem;
   font-size: 2rem;
