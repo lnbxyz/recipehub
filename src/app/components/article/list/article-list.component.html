@@ -1,5 +1,5 @@
 <ng-container *ngIf="!isLoading; else loading">
-  <div class="list" *ngIf="articles?.length; else emptyMessage">
+  <div class="grid" *ngIf="articles?.length; else emptyMessage">
     <rh-article-card
       *ngFor="let article of articles"
       [article]="article"

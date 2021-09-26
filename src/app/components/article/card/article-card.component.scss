@@ -1,8 +1,4 @@
 :host {
-  flex: auto;
-  max-width: 20rem;
-  height: fit-content;
-
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -28,6 +24,16 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.divider {
+  margin-top: auto;
+  padding: 0.5rem 0;
+  > hr {
+    margin: 0;
+    border: 1px solid var(--rh-color-background-secondary);
+    // border-color: var(--rh-color-background-secondary);
+  }
 }
 
 .info {

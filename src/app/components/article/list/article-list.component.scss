@@ -1,9 +1,3 @@
-.list {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-
 .loading {
   padding: 2rem;
   font-size: 2rem;
@@ -23,5 +17,20 @@
 
   > i {
     font-size: 2em;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(var(--rh-article-list-columns), 1fr);
+  margin-bottom: 2rem;
+}
+
+@for $i from 1 through 10 {
+  @media screen and (min-width: #{350px * $i}) {
+    .grid {
+      --rh-article-list-columns: #{$i};
+    }
   }
 }
