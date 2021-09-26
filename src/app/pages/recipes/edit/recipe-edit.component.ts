@@ -80,10 +80,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   public onRemoveIngredientButtonPressed(index: number): void {
     this.ingredients.removeAt(index);
+    this.form.markAsDirty();
   }
 
   public onRemoveStepButtonPressed(index: number): void {
     this.steps.removeAt(index);
+    this.form.markAsDirty();
   }
 
   public canSave(): boolean {
