@@ -1,5 +1,14 @@
-<div class="author">
-  <h4>{{ article?.user?.name }}</h4>
+<div class="info">
+  <div class="author">
+    <h4>{{ article?.user?.name }}</h4>
+    <h5>{{ article?.createdOn | date: "short" }}</h5>
+  </div>
+  <rh-interaction-button
+    icon="heart"
+    [caption]="caption"
+    [interacted]="article?.liked"
+    color="var(--rh-color-red)"
+  ></rh-interaction-button>
 </div>
 <h2 class="clamp">{{ article?.name }}</h2>
 <p class="clamp">{{ article?.description }}</p>

@@ -9,6 +9,13 @@ import { Article } from 'src/app/tokens';
 export class ArticleCardComponent implements OnInit {
   @Input() article?: Article;
 
+  public get caption(): string {
+    if (this.article?.likeCount) {
+      return this.article?.likeCount?.toString();
+    }
+    return 'Like';
+  }
+
   constructor() {}
 
   ngOnInit(): void {}

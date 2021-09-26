@@ -24,7 +24,7 @@ export class ArticleService {
       commentCount: 13,
       likeCount: 129,
       createdOn: '2021-09-26T21:40:10.739Z',
-      liked: false,
+      liked: true,
       recipes: [
         {
           id: 'fc479204-90fa-46f8-a57a-13a4ef232b23',
