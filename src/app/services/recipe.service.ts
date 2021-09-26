@@ -28,8 +28,7 @@ export class RecipeService {
   }
 
   public update(recipe: Recipe): Observable<any> {
-    // TODO
-    return of({}).pipe(delay(1000));
+    return this.http.put(`${environment.apiPath}/recipe/${recipe.id}`, recipe);
   }
 
   public delete(id: string): Observable<any> {
