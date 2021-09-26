@@ -12,7 +12,7 @@ import { DialogService } from '../../dialog/dialog.service';
   styleUrls: ['./article-list.component.scss'],
 })
 export class ArticleListComponent implements OnInit {
-  @Input() userId?: string;
+  @Input() public userId?: string;
 
   public articles: Article[] = [];
   public isLoading = true;

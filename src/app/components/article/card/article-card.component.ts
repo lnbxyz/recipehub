@@ -7,7 +7,7 @@ import { Article } from 'src/app/tokens';
   styleUrls: ['./article-card.component.scss'],
 })
 export class ArticleCardComponent implements OnInit {
-  @Input() article?: Article;
+  @Input() public article?: Article;
 
   public get caption(): string {
     if (this.article?.likeCount) {
