@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { UserService } from 'src/app/services/user.service';
 import { Ingredient, Recipe, Step } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 import { v4 as uuidv4 } from 'uuid';
@@ -23,7 +24,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private recipeService: RecipeService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -133,11 +135,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private create(): void {
+    if (!this.userService.currentUser) {
+      return;
+    }
+
     this.subscriptions.add(
       'create',
       this.recipeService
         .create({
           id: uuidv4(),
+          userId: this.userService.currentUser?.id,
           name: this.form.get('name')?.value,
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,
@@ -172,11 +179,13 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     if (!this.recipe) {
       return;
     }
+
     this.subscriptions.add(
       'update',
       this.recipeService
         .update({
           id: this.recipe.id,
+          userId: this.recipe.userId,
           name: this.form.get('name')?.value,
           description: this.form.get('description')?.value,
           servings: this.form.get('servings')?.value,

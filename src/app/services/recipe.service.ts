@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Recipe } from '../tokens';
 
 @Injectable({ providedIn: 'root' })
@@ -8,6 +10,7 @@ export class RecipeService {
   // TEMPORARY
   private mockData: Recipe[] = [
     {
+      userId: '',
       id: '6f3e5eea-2064-4fb8-97e2-faa005e78a6e',
       name: 'Milkshake de Morango',
       description:
@@ -54,17 +57,20 @@ export class RecipeService {
       ],
       tags: [
         {
+          userId: '',
           id: '26907988-c47d-418e-bbf1-3b46c5cc6673',
           name: 'Verão',
           color: '#ffb400',
         },
         {
+          userId: '',
           id: 'be91277b-e405-439b-b554-d1be99754ba1',
           name: 'test',
         },
       ],
     },
     {
+      userId: '',
       id: '2579a927-9697-4d98-a562-339792267c86',
       name: 'Milkshake de Ovomaltine',
       description:
@@ -72,7 +78,7 @@ export class RecipeService {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   public getAll(): Observable<Recipe[] | undefined> {
     // TODO implement http call
@@ -89,6 +95,7 @@ export class RecipeService {
   }
 
   public create(recipe: Recipe): Observable<any> {
+    return this.http.post(`${environment.apiPath}/recipe`, recipe);
     return of({}).pipe(delay(1000));
   }
 
