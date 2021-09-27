@@ -29,7 +29,11 @@
     <span *ngIf="recipe?.time">{{ recipe?.time }} minuto(s)</span>
   </h3>
 
-  <p *ngIf="recipe?.description">{{ recipe?.description }}</p>
+  <p *ngIf="recipe?.description">
+    <ng-container *ngFor="let line of replaceNewLine(recipe?.description)">
+      {{ line }} <br />
+    </ng-container>
+  </p>
 
   <div class="tag-list" *ngIf="recipe?.tags?.length">
     <rh-tag
@@ -58,7 +62,9 @@
       <h2>Passos</h2>
       <ol>
         <li *ngFor="let step of recipe?.steps">
-          {{ step.description }}
+          <ng-container *ngFor="let line of replaceNewLine(step.description)">
+            {{ line }} <br />
+          </ng-container>
         </li>
       </ol>
     </div>
