@@ -45,7 +45,9 @@
         <h2>Ingredientes</h2>
         <ul>
           <li *ngFor="let ingredient of recipe?.ingredients">
-            <b>{{ ingredient.quantity }} {{ ingredient.unit }}</b>
+            <b *ngIf="ingredient.quantity || ingredient.unit"
+              >{{ ingredient.quantity }} {{ ingredient.unit }}</b
+            >
             {{ ingredient.name }}
           </li>
         </ul>
