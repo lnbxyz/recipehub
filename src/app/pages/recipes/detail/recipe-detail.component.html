@@ -5,6 +5,7 @@
       <!-- TODO: show only if current user equals recipe userId -->
 
       <rh-button
+        *ngIf="recipe?.userId === userService.currentUser?.id"
         type="secondary"
         icon="trash"
         color="var(--rh-color-red)"
@@ -12,7 +13,12 @@
       >
         Apagar
       </rh-button>
-      <rh-button type="secondary" icon="pen" (onClick)="onEditButtonPressed()">
+      <rh-button
+        *ngIf="recipe?.userId === userService.currentUser?.id"
+        type="secondary"
+        icon="pen"
+        (onClick)="onEditButtonPressed()"
+      >
         Editar
       </rh-button>
     </div>

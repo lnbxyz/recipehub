@@ -1,3 +1,4 @@
+export * from './article.interface';
 export * from './audited-entity.interface';
 export * from './dialog-action.interface';
 export * from './entity.interface';

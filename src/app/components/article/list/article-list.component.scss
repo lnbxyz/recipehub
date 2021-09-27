@@ -1,0 +1,36 @@
+.loading {
+  padding: 2rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 2rem;
+  gap: 1rem;
+  color: var(--rh-color-text-secondary);
+
+  > i {
+    font-size: 2em;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(var(--rh-article-list-columns), 1fr);
+  margin-bottom: 2rem;
+}
+
+@for $i from 1 through 10 {
+  @media screen and (min-width: #{350px * $i}) {
+    .grid {
+      --rh-article-list-columns: #{$i};
+    }
+  }
+}
