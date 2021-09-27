@@ -63,8 +63,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   public onAddIngredientButtonPressed(): void {
     const ingredientForm = this.fb.group({
       name: ['', Validators.required],
-      quantity: ['', Validators.required],
-      unit: ['', Validators.required],
+      quantity: [''],
+      unit: [''],
     });
 
     this.ingredients.push(ingredientForm);
@@ -105,22 +105,28 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  private validateSize(arr: FormArray) {
+    return arr.length == 0 ? {
+      invalidSize: true
+    } : null;
+  }
+
   private initForm(): void {
     this.form = this.fb.group({
       name: [this.recipe?.name, Validators.required],
       description: [this.recipe?.description],
       servings: [this.recipe?.steps],
       time: [this.recipe?.time],
-      ingredients: this.fb.array([]),
-      steps: this.fb.array([]),
+      ingredients: this.fb.array([], Validators.required),
+      steps: this.fb.array([], Validators.required),
     });
 
     this.recipe?.ingredients?.forEach((ingredient) => {
       this.ingredients.push(
         this.fb.group({
           name: [ingredient.name, Validators.required],
-          quantity: [ingredient.quantity, Validators.required],
-          unit: [ingredient.unit, Validators.required],
+          quantity: [ingredient.quantity],
+          unit: [ingredient.unit],
         })
       );
     });

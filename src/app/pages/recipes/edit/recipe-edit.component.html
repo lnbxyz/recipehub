@@ -62,7 +62,7 @@
 
     <div class="form-row">
       <div class="form-array" formArrayName="ingredients">
-        <h3>Ingredientes</h3>
+        <h3>Ingredientes <span class="required-indicator">*</span></h3>
 
         <div class="ingredient-form-grid" *ngIf="ingredients.controls?.length">
           <ng-container
@@ -77,7 +77,7 @@
 
             <input type="text" placeholder="Un." formControlName="unit" />
 
-            <input type="text" placeholder="Nome" formControlName="name" />
+            <input type="text" placeholder="Nome *" formControlName="name" />
 
             <rh-button
               type="secondary"
@@ -97,7 +97,7 @@
       </div>
 
       <div class="form-array" formArrayName="steps">
-        <h3>Passos</h3>
+        <h3>Passos <span class="required-indicator">*</span></h3>
 
         <div class="step-form-grid" *ngIf="steps.controls?.length">
           <ng-container
@@ -107,7 +107,7 @@
             <h4>{{ i + 1 }}.</h4>
             <input
               type="text"
-              placeholder="Descrição"
+              placeholder="Descrição *"
               formControlName="description"
             />
 
