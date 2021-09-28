@@ -10,6 +10,7 @@ import { RecipeEditComponent } from './edit/recipe-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'src/app/components/dialog/dialog.module';
 import { LoadingModule } from 'src/app/components/loading/loading.module';
+import { EmptyMessageModule } from 'src/app/components/empty-message/empty-message.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LoadingModule } from 'src/app/components/loading/loading.module';
     ButtonModule,
     TagModule,
     DialogModule,
-    LoadingModule
+    LoadingModule,
+    EmptyMessageModule
   ],
 })
 export class RecipesModule {}

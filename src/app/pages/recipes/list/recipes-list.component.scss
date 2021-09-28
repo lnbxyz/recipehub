@@ -10,17 +10,3 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
-.empty-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.5rem;
-  padding: 2rem;
-  gap: 1rem;
-  color: var(--rh-color-text-secondary);
-
-  > i {
-    font-size: 2em;
-  }
-}
