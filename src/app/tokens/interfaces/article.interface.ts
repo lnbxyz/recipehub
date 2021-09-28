@@ -9,7 +9,7 @@ export interface Article extends AuditedEntity, Entity, MustHaveOwner {
   description?: string;
   recipes?: Recipe[];
   likeCount?: number;
-  liked?: boolean;
+  isLiked?: boolean;
   commentCount?: number;
   user: User;
 }
