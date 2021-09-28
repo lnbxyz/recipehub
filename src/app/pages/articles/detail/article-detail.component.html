@@ -1,0 +1,49 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="header">
+    <div class="">
+      <h1>{{ article?.name }}</h1>
+      <p>
+        Por <b>{{ article?.user?.name }}</b> em {{ article?.createdOn | date }}
+      </p>
+    </div>
+    <div class="actions">
+      <rh-interaction-button
+        *ngIf="article?.userId === userService.currentUser?.id"
+        icon="trash-alt"
+        color="var(--rh-color-red)"
+        (onClick)="onDeleteButtonPressed()"
+        caption="Apagar"
+      ></rh-interaction-button>
+
+      <rh-interaction-button
+        *ngIf="article?.userId === userService.currentUser?.id"
+        icon="edit"
+        caption="Editar"
+        (onClick)="onEditButtonPressed()"
+      ></rh-interaction-button>
+
+      <rh-interaction-button
+        *ngIf="article?.userId === userService.currentUser?.id"
+        icon="comment"
+        [caption]="commentCaption"
+      ></rh-interaction-button>
+
+      <rh-interaction-button
+        icon="heart"
+        [caption]="likeCaption"
+        [interacted]="article?.isLiked"
+        color="var(--rh-color-red)"
+      ></rh-interaction-button>
+    </div>
+  </div>
+
+  <p *ngIf="article?.description">
+    <ng-container *ngFor="let line of replaceNewLine(article?.description)">
+      {{ line }} <br />
+    </ng-container>
+  </p>
+</ng-container>
+
+<ng-template #loading>
+  <rh-loading></rh-loading>
+</ng-template>
