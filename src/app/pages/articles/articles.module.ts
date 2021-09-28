@@ -9,6 +9,7 @@ import { ArticleEditComponent } from './edit/article-edit.component';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeDialogModule } from 'src/app/components/recipe-dialog/recipe-dialog.module';
+import { CommentsSidebarModule } from 'src/app/components/comments-sidebar/comments-sidebar.module';
 
 @NgModule({
   declarations: [ArticleDetailComponent, ArticleEditComponent],
@@ -21,6 +22,7 @@ import { RecipeDialogModule } from 'src/app/components/recipe-dialog/recipe-dial
     ButtonModule,
     ReactiveFormsModule,
     RecipeDialogModule,
+    CommentsSidebarModule,
   ],
 })
 export class ArticlesPageModule {}

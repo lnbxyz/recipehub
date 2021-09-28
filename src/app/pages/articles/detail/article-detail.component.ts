@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommentsSidebarService } from 'src/app/components/comments-sidebar/comments-sidebar.service';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
@@ -36,6 +37,7 @@ export class ArticleDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private dialog: DialogService,
+    private commentsSidebar: CommentsSidebarService,
     public userService: UserService
   ) {}
 
@@ -194,6 +196,13 @@ export class ArticleDetailComponent implements OnInit {
           actions: [{ text: 'OK' }],
         })
         .subscribe()
+    );
+  }
+
+  public onCommentButtonPressed(): void {
+    this.subscriptions.add(
+      'comments-sidebar',
+      this.commentsSidebar.open().subscribe()
     );
   }
 }
