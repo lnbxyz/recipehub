@@ -29,3 +29,21 @@
   gap: 0.5rem;
   justify-content: flex-end;
 }
+
+.recipe-list {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recipe-card {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--rh-color-accent);
+    background-color: var(--rh-color-background-secondary);
+  }
+}

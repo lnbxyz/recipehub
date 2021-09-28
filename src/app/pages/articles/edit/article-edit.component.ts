@@ -67,6 +67,7 @@ export class ArticleEditComponent implements OnInit {
     });
 
     this.recipes.push(recipeForm);
+    this.form.markAsDirty();
   }
 
   public onAddRecipeButtonPressed(): void {
@@ -74,7 +75,15 @@ export class ArticleEditComponent implements OnInit {
       'recipe-dialog',
       this.recipeDialog.open().subscribe((result) => {
         if (result) {
-          this.addRecipe(result);
+          if (
+            !this.recipes?.controls
+              .map((g) => g.get('recipeId')?.value)
+              .includes(result.id)
+          ) {
+            this.addRecipe(result);
+          } else {
+            this.showErrorDialog('Esta receita já foi adicionada!');
+          }
         }
       })
     );

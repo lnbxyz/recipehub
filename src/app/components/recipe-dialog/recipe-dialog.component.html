@@ -1,6 +1,35 @@
 <div class="overlay" (click)="close()">
   <div class="dialog">
-    <h2>recipe dialog!</h2>
+    <h2>Escolha uma receita</h2>
+
+    <ng-container *ngIf="!isLoading; else loading">
+      <ng-container *ngIf="!hasError; else errorMessage">
+        <div *ngIf="recipes?.length; else emptyMessage" class="recipe-list">
+          <div
+            *ngFor="let recipe of recipes"
+            (click)="close(recipe)"
+            class="recipe-card"
+          >
+            <h4>{{ recipe.name }}</h4>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #emptyMessage>
+      <rh-empty-message>Não encontramos nenhuma receita!</rh-empty-message>
+    </ng-template>
+
+    <ng-template #loading>
+      <rh-loading></rh-loading>
+    </ng-template>
+
+    <ng-template #errorMessage>
+      <rh-empty-message
+        >Não foi possível carregar a lista de receitas</rh-empty-message
+      >
+    </ng-template>
+
     <div class="actions">
       <rh-button type="secondary" (onClick)="close(undefined)">
         Cancelar
