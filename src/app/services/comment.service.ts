@@ -47,6 +47,8 @@ export class CommentService {
     articleId: string;
     commentId: string;
   }): Observable<void> {
-    return this.http.delete<void>(`/article/${articleId}/comment/${commentId}`);
+    return this.http.delete<void>(
+      `${environment.apiPath}/article/${articleId}/comment/${commentId}`
+    );
   }
 }

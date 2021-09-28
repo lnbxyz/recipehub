@@ -33,7 +33,12 @@
             >
               <h6 class="comment-action">editar</h6>
               <h6 class="decorative">·</h6>
-              <h6 class="comment-action">apagar</h6>
+              <h6
+                class="comment-action"
+                (click)="onDeleteCommentButtonPressed(comment)"
+              >
+                apagar
+              </h6>
             </div>
           </div>
         </div>

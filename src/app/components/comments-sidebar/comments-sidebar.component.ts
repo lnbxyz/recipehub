@@ -89,6 +89,29 @@ export class CommentsSidebarComponent implements OnInit {
     );
   }
 
+  public onDeleteCommentButtonPressed(comment: Comment): void {
+    this.isLoading = true;
+    this.subscriptions.add(
+      'create-comment',
+      this.commentService
+        .delete({
+          articleId: comment.articleId,
+          commentId: comment.id,
+        })
+        .subscribe(
+          // Success
+          () => {
+            this.refresh();
+          },
+          // Error
+          () => {
+            this.hasError = true;
+            this.isLoading = false;
+          }
+        )
+    );
+  }
+
   public close(): void {
     this.closeSubject.next();
   }
