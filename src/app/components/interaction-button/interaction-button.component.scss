@@ -1,8 +1,15 @@
 :host {
+  --rh-interaction-button-color: var(--rh-color-accent);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.125rem;
+  transition: color 0.1s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--rh-interaction-button-color);
+  }
 }
 
 i {
