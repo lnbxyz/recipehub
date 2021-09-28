@@ -42,6 +42,11 @@ export class ArticleDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  private refresh(): void {
+    this.isLoading = true;
     const ID = this.route.snapshot.paramMap.get('id');
     if (ID) {
       this.subscriptions.add(
@@ -210,7 +215,9 @@ export class ArticleDetailComponent implements OnInit {
         .open({
           articleId: this.article?.id,
         })
-        .subscribe()
+        .subscribe(() => {
+          this.refresh();
+        })
     );
   }
 }
