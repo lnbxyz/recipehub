@@ -8,6 +8,7 @@ import { InteractionButtonModule } from 'src/app/components/interaction-button/i
 import { ArticleEditComponent } from './edit/article-edit.component';
 import { ButtonModule } from 'src/app/components/button/button.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RecipeDialogModule } from 'src/app/components/recipe-dialog/recipe-dialog.module';
 
 @NgModule({
   declarations: [ArticleDetailComponent, ArticleEditComponent],
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogModule,
     ButtonModule,
     ReactiveFormsModule,
+    RecipeDialogModule,
   ],
 })
 export class ArticlesPageModule {}

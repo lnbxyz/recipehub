@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
+import { RecipeDialogService } from 'src/app/components/recipe-dialog/recipe-dialog.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
 import { Article, ArticleRecipe, Recipe } from 'src/app/tokens';
@@ -25,7 +26,8 @@ export class ArticleEditComponent implements OnInit {
     private fb: FormBuilder,
     private articleService: ArticleService,
     private dialog: DialogService,
-    private userService: UserService
+    private userService: UserService,
+    private recipeDialog: RecipeDialogService
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +69,16 @@ export class ArticleEditComponent implements OnInit {
     this.recipes.push(recipeForm);
   }
 
-  public onAddRecipeButtonPressed(): void {}
+  public onAddRecipeButtonPressed(): void {
+    this.subscriptions.add(
+      'recipe-dialog',
+      this.recipeDialog.open().subscribe((result) => {
+        if (result) {
+          this.addRecipe(result);
+        }
+      })
+    );
+  }
 
   public onRemoveRecipeButtonPressed(index: number): void {
     this.recipes.removeAt(index);
