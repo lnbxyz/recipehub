@@ -4,6 +4,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 import { Comment } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'rh-comments-sidebar',
@@ -16,6 +17,7 @@ export class CommentsSidebarComponent implements OnInit {
   public comments: Comment[] = [];
   public isLoading = true;
   public hasError = false;
+  public commentField = '';
   private subscriptions = new SubscriptionManager();
 
   constructor(
@@ -24,6 +26,10 @@ export class CommentsSidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  private refresh(): void {
     if (!this.userService.currentUser || !this.articleId) {
       this.hasError = true;
       return;
@@ -36,7 +42,11 @@ export class CommentsSidebarComponent implements OnInit {
         // Success
         (comments) => {
           if (comments) {
-            this.comments = comments;
+            this.comments = comments.sort(
+              (a, b) =>
+                new Date(b.modifiedOn || b.createdOn || 0).getTime() -
+                new Date(a.modifiedOn || a.createdOn || 0).getTime()
+            );
           }
           this.isLoading = false;
         },
@@ -46,6 +56,36 @@ export class CommentsSidebarComponent implements OnInit {
           this.isLoading = false;
         }
       )
+    );
+  }
+
+  public onAddCommentButtonPressed(): void {
+    if (!this.userService.currentUser) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.subscriptions.add(
+      'create-comment',
+      this.commentService
+        .create({
+          id: uuidv4(),
+          articleId: this.articleId,
+          body: this.commentField,
+          userId: this.userService.currentUser?.id,
+        })
+        .subscribe(
+          // Success
+          () => {
+            this.commentField = '';
+            this.refresh();
+          },
+          // Error
+          () => {
+            this.hasError = true;
+            this.isLoading = false;
+          }
+        )
     );
   }
 

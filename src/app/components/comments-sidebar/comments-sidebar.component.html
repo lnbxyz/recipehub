@@ -4,14 +4,27 @@
 
     <ng-container *ngIf="!isLoading; else loading">
       <ng-container *ngIf="!hasError; else errorMessage">
+        <div class="comment-form">
+          <textarea
+            [(ngModel)]="commentField"
+            placeholder="Adicionar comentário..."
+            rows="2"
+          ></textarea>
+          <rh-button
+            type="secondary"
+            icon="paper-plane"
+            (click)="onAddCommentButtonPressed()"
+          ></rh-button>
+        </div>
+
         <div *ngIf="comments?.length; else emptyMessage" class="comment-list">
           <div *ngFor="let comment of comments" class="comment">
             <h4>{{ comment.user?.name }}</h4>
             <p>{{ comment.body }}</p>
             <h6>
-              <span>{{ comment.createdOn | date }}</span>
+              <span>{{ comment.createdOn | date: "short" }}</span>
               <span *ngIf="comment.modifiedOn">
-                - editado {{ comment.modifiedOn | date }}
+                - editado {{ comment.modifiedOn | date: "short" }}
               </span>
             </h6>
             <div
@@ -36,9 +49,7 @@
     </ng-template>
 
     <ng-template #errorMessage>
-      <rh-empty-message
-        >Não foi possível carregar a lista de comentários</rh-empty-message
-      >
+      <rh-empty-message>Um erro inesperado ocorreu!</rh-empty-message>
     </ng-template>
   </div>
 </div>
