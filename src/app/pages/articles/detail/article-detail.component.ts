@@ -44,17 +44,22 @@ export class ArticleDetailComponent implements OnInit {
     if (ID) {
       this.subscriptions.add(
         'get-details',
-        this.articleService.getById(ID).subscribe((article) => {
-          if (article) {
-            this.article = article;
-          }
-          this.article?.articleRecipes?.forEach((ar) => {
-            if (!this.article?.recipes?.find((r) => r.id === ar.recipeId)) {
-              this.deletedRecipes.push(ar.recipeId);
+        this.articleService
+          .getById({
+            articleId: ID,
+            userId: this.userService.currentUser?.id,
+          })
+          .subscribe((article) => {
+            if (article) {
+              this.article = article;
             }
-          });
-          this.isLoading = false;
-        })
+            this.article?.articleRecipes?.forEach((ar) => {
+              if (!this.article?.recipes?.find((r) => r.id === ar.recipeId)) {
+                this.deletedRecipes.push(ar.recipeId);
+              }
+            });
+            this.isLoading = false;
+          })
       );
     }
   }
@@ -96,6 +101,72 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
+  public onLikeButtonPressed(): void {
+    this.article?.isLiked ? this.dislike() : this.like();
+  }
+
+  private like(): void {
+    if (!this.article || !this.userService.currentUser) {
+      return;
+    }
+
+    this.subscriptions.add(
+      'like',
+      this.articleService
+        .like(this.article.id, this.userService.currentUser.id)
+        .subscribe(
+          // Success
+          () => {
+            if (!this.article) {
+              return;
+            }
+
+            if (!this.article.likeCount) {
+              this.article.likeCount = 0;
+            }
+
+            this.article.likeCount++;
+            this.article.isLiked = true;
+          },
+          // Failure
+          () => {
+            this.showErrorDialog('Não foi possível adicionar o like ao artigo');
+          }
+        )
+    );
+  }
+
+  private dislike(): void {
+    if (!this.article || !this.userService.currentUser) {
+      return;
+    }
+
+    this.subscriptions.add(
+      'dislike',
+      this.articleService
+        .dislike(this.article.id, this.userService.currentUser.id)
+        .subscribe(
+          // Success
+          () => {
+            if (!this.article) {
+              return;
+            }
+
+            if (!this.article.likeCount) {
+              this.article.likeCount = 0;
+            }
+
+            this.article.likeCount--;
+            this.article.isLiked = false;
+          },
+          // Failure
+          () => {
+            this.showErrorDialog('Não foi possível remover o like');
+          }
+        )
+    );
+  }
+
   public replaceNewLine(text?: string): Array<string> {
     return replaceNewLine(text);
   }
@@ -112,5 +183,17 @@ export class ArticleDetailComponent implements OnInit {
     } else {
       this.expandedRecipes.push(recipeId);
     }
+  }
+
+  private showErrorDialog(message: string): void {
+    this.subscriptions.add(
+      'error-dialog',
+      this.dialog
+        .open({
+          message: message,
+          actions: [{ text: 'OK' }],
+        })
+        .subscribe()
+    );
   }
 }

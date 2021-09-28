@@ -39,12 +39,17 @@ export class ArticleEditComponent implements OnInit {
       if (ID) {
         this.subscriptions.add(
           'get-details',
-          this.articleService.getById(ID).subscribe((article) => {
-            if (article) {
-              this.article = article;
-            }
-            this.initForm();
-          })
+          this.articleService
+            .getById({
+              articleId: ID,
+              userId: this.userService.currentUser?.id,
+            })
+            .subscribe((article) => {
+              if (article) {
+                this.article = article;
+              }
+              this.initForm();
+            })
         );
       }
     }

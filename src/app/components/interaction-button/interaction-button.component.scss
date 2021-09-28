@@ -5,15 +5,15 @@
   align-items: center;
   gap: 0.125rem;
   transition: color 0.1s ease-in-out;
+}
+
+i {
+  font-size: 1.5rem;
 
   &:hover {
     cursor: pointer;
     color: var(--rh-interaction-button-color);
   }
-}
-
-i {
-  font-size: 1.5rem;
 }
 
 .interacted {

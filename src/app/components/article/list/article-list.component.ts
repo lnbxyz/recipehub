@@ -47,7 +47,7 @@ export class ArticleListComponent implements OnInit {
 
     const request = this.userId
       ? this.articleService.getByUser(this.userService.currentUser.id)
-      : this.articleService.getAll();
+      : this.articleService.getAll({ userId: this.userService.currentUser.id });
 
     this.isLoading = true;
     this.subscriptions.add(
