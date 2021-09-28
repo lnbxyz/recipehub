@@ -12,6 +12,6 @@ export interface Article extends AuditedEntity, Entity, MustHaveOwner {
   likeCount?: number;
   isLiked?: boolean;
   commentCount?: number;
-  user: User;
+  user?: User;
   articleRecipes?: ArticleRecipe[];
 }

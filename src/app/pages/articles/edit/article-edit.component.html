@@ -1,1 +1,79 @@
-<p>article-edit works!</p>
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1>{{ isCreating ? "Novo artigo" : "Editar artigo" }}</h1>
+    <div class="actions">
+      <rh-button
+        icon="save"
+        [disabled]="!canSave()"
+        (onClick)="onSaveButtonPressed()"
+      >
+        Salvar
+      </rh-button>
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="form-row">
+      <div class="form-control">
+        <label for="name">Nome <span class="required-indicator">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          formControlName="name"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-control">
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          name="description"
+          formControlName="description"
+          rows="5"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-array" formArrayName="recipes">
+        <div class="form-array-header">
+          <h3>Receitas <span class="required-indicator">*</span></h3>
+          <rh-button
+            type="secondary"
+            icon="plus"
+            (onClick)="onAddRecipeButtonPressed()"
+          >
+            Adicionar receita
+          </rh-button>
+        </div>
+
+        <div class="recipe-list" *ngIf="recipes.controls?.length">
+          <div
+            class="recipe-row"
+            *ngFor="let recipeForm of recipes.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <h4>{{ recipeForm?.get("name")?.value }}</h4>
+
+            <rh-button
+              type="secondary"
+              icon="trash"
+              color="var(--rh-color-red)"
+              (onClick)="onRemoveRecipeButtonPressed(i)"
+            ></rh-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</ng-template>
