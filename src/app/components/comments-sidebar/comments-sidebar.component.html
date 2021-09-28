@@ -20,7 +20,14 @@
         <div *ngIf="comments?.length; else emptyMessage" class="comment-list">
           <div *ngFor="let comment of comments" class="comment">
             <h4>{{ comment.user?.name }}</h4>
-            <p>{{ comment.body }}</p>
+            <p *ngIf="editingCommentId !== comment.id">{{ comment.body }}</p>
+
+            <textarea
+              *ngIf="editingCommentId === comment.id"
+              [(ngModel)]="editingCommentField"
+              placeholder="Adicionar comentário..."
+              rows="2"
+            ></textarea>
             <h6>
               <span>{{ comment.createdOn | date: "short" }}</span>
               <span *ngIf="comment.modifiedOn">
@@ -28,16 +35,43 @@
               </span>
             </h6>
             <div
-              *ngIf="comment.userId === userService.currentUser?.id"
+              *ngIf="
+                comment.userId === userService.currentUser?.id &&
+                editingCommentId !== comment.id
+              "
               class="comment-actions"
             >
-              <h6 class="comment-action">editar</h6>
+              <h6
+                class="comment-action"
+                (click)="onEditCommentButtonPressed(comment)"
+              >
+                editar
+              </h6>
               <h6 class="decorative">·</h6>
               <h6
                 class="comment-action"
                 (click)="onDeleteCommentButtonPressed(comment)"
               >
                 apagar
+              </h6>
+            </div>
+
+            <div
+              *ngIf="editingCommentId === comment.id"
+              class="comment-actions"
+            >
+              <h6
+                class="comment-action"
+                (click)="onSaveCommentButtonPressed(comment)"
+              >
+                salvar
+              </h6>
+              <h6 class="decorative">·</h6>
+              <h6
+                class="comment-action"
+                (click)="onCancelEditCommentButtonPressed()"
+              >
+                cancelar
               </h6>
             </div>
           </div>

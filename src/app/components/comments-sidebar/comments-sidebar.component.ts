@@ -18,6 +18,8 @@ export class CommentsSidebarComponent implements OnInit {
   public isLoading = true;
   public hasError = false;
   public commentField = '';
+  public editingCommentField = '';
+  public editingCommentId = '';
   private subscriptions = new SubscriptionManager();
 
   constructor(
@@ -101,6 +103,42 @@ export class CommentsSidebarComponent implements OnInit {
         .subscribe(
           // Success
           () => {
+            this.refresh();
+          },
+          // Error
+          () => {
+            this.hasError = true;
+            this.isLoading = false;
+          }
+        )
+    );
+  }
+
+  public onEditCommentButtonPressed(comment: Comment): void {
+    this.editingCommentId = comment.id;
+    this.editingCommentField = comment.body;
+  }
+
+  public onCancelEditCommentButtonPressed(): void {
+    this.editingCommentId = '';
+    this.editingCommentField = '';
+  }
+
+  public onSaveCommentButtonPressed(comment: Comment): void {
+    this.isLoading = true;
+    this.subscriptions.add(
+      'edit-comment',
+      this.commentService
+        .update({
+          ...comment,
+          body: this.editingCommentField,
+          user: undefined,
+        })
+        .subscribe(
+          // Success
+          () => {
+            this.editingCommentId = '';
+            this.editingCommentField = '';
             this.refresh();
           },
           // Error
