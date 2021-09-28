@@ -9,6 +9,7 @@ import { RecipeDetailComponent } from './detail/recipe-detail.component';
 import { RecipeEditComponent } from './edit/recipe-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'src/app/components/dialog/dialog.module';
+import { LoadingModule } from 'src/app/components/loading/loading.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DialogModule } from 'src/app/components/dialog/dialog.module';
     ButtonModule,
     TagModule,
     DialogModule,
+    LoadingModule
   ],
 })
 export class RecipesModule {}
