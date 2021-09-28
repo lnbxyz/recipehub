@@ -64,7 +64,8 @@ textarea {
   color: var(--rh-color-red);
 }
 
-a[ng-reflect-router-link] {
+a[ng-reflect-router-link],
+.link {
   color: var(--rh-color-text-secondary);
   text-decoration: underline 2px;
   font-weight: 600;
@@ -72,6 +73,7 @@ a[ng-reflect-router-link] {
 
   &:hover,
   &.subtle:hover {
+    cursor: pointer;
     color: var(--rh-color-accent);
   }
 

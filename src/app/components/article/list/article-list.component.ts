@@ -20,7 +20,6 @@ export class ArticleListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private articleService: ArticleService,
     private dialog: DialogService,
     private userService: UserService
@@ -34,15 +33,11 @@ export class ArticleListComponent implements OnInit {
     this.subscriptions.clear();
   }
 
-  public onCreateButtonPressed(): void {
-    this.router.navigate(['new'], { relativeTo: this.route });
-  }
-
   public onCardPressed(article: Article): void {
     if (!article.id) {
       return;
     }
-    this.router.navigate([article.id], { relativeTo: this.route });
+    this.router.navigate(['articles', article.id]);
   }
 
   private getArticles(): void {
@@ -52,7 +47,7 @@ export class ArticleListComponent implements OnInit {
 
     const request = this.userId
       ? this.articleService.getByUser(this.userService.currentUser.id)
-      : this.articleService.getAll();
+      : this.articleService.getAll({ userId: this.userService.currentUser.id });
 
     this.isLoading = true;
     this.subscriptions.add(

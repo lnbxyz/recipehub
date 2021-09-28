@@ -1,0 +1,113 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="header">
+    <div class="">
+      <h1>{{ article?.name }}</h1>
+      <p>
+        Por <b>{{ article?.user?.name }}</b> em {{ article?.createdOn | date }}
+      </p>
+    </div>
+    <div class="actions">
+      <rh-interaction-button
+        *ngIf="article?.userId === userService.currentUser?.id"
+        icon="trash-alt"
+        color="var(--rh-color-red)"
+        (onClick)="onDeleteButtonPressed()"
+        caption="Apagar"
+      ></rh-interaction-button>
+
+      <rh-interaction-button
+        *ngIf="article?.userId === userService.currentUser?.id"
+        icon="edit"
+        caption="Editar"
+        (onClick)="onEditButtonPressed()"
+      ></rh-interaction-button>
+
+      <rh-interaction-button
+        *ngIf="article?.userId === userService.currentUser?.id"
+        icon="comment"
+        [caption]="commentCaption"
+      ></rh-interaction-button>
+
+      <rh-interaction-button
+        icon="heart"
+        [caption]="likeCaption"
+        [interacted]="article?.isLiked"
+        color="var(--rh-color-red)"
+        (onClick)="onLikeButtonPressed()"
+      ></rh-interaction-button>
+    </div>
+  </div>
+
+  <p *ngIf="article?.description">
+    <ng-container *ngFor="let line of replaceNewLine(article?.description)">
+      {{ line }} <br />
+    </ng-container>
+  </p>
+
+  <div class="recipe-card" *ngFor="let recipe of article?.recipes">
+    <div class="recipe-header">
+      <h2>
+        <a class="subtle" [routerLink]="['/recipes', recipe.id]">{{
+          recipe.name
+        }}</a>
+      </h2>
+
+      <h4 class="pseudo-comma" *ngIf="recipe.servings || recipe.time">
+        <span *ngIf="recipe.servings">{{ recipe.servings }} porções</span>
+        <span *ngIf="recipe.time">{{ recipe.time }} minuto(s)</span>
+      </h4>
+    </div>
+
+    <span class="link subtle" (click)="toggleExpanded(recipe.id)">
+      <i
+        [class]="'fas fa-angle-' + (isExpanded(recipe.id) ? 'down' : 'right')"
+      ></i>
+      {{ isExpanded(recipe.id) ? "esconder" : "mostrar" }} detalhes
+    </span>
+
+    <ng-container *ngIf="isExpanded(recipe.id)">
+      <p *ngIf="recipe.description">
+        <ng-container *ngFor="let line of replaceNewLine(recipe.description)">
+          {{ line }} <br />
+        </ng-container>
+      </p>
+
+      <div class="recipe-details">
+        <div>
+          <ng-container *ngIf="recipe.ingredients?.length">
+            <h3>Ingredientes</h3>
+            <ul>
+              <li *ngFor="let ingredient of recipe.ingredients">
+                <b *ngIf="ingredient.quantity || ingredient.unit"
+                  >{{ ingredient.quantity }} {{ ingredient.unit }}</b
+                >
+                {{ ingredient.name }}
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+
+        <div *ngIf="recipe.steps?.length">
+          <h3>Passos</h3>
+          <ol>
+            <li *ngFor="let step of recipe.steps">
+              <ng-container
+                *ngFor="let line of replaceNewLine(step.description)"
+              >
+                {{ line }} <br />
+              </ng-container>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="recipe-card" *ngFor="let deletedRecipe of deletedRecipes">
+    <h2>Ops! Esta receita foi apagada :(</h2>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <rh-loading></rh-loading>
+</ng-template>

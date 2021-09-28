@@ -2,8 +2,6 @@
   <div class="header">
     <h1>{{ recipe?.name }}</h1>
     <div class="actions">
-      <!-- TODO: show only if current user equals recipe userId -->
-
       <rh-button
         *ngIf="recipe?.userId === userService.currentUser?.id"
         type="secondary"
