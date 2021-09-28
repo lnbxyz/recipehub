@@ -12,6 +12,8 @@ import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager
 })
 export class ArticleDetailComponent implements OnInit {
   public article?: Article;
+  public deletedRecipes: string[] = [];
+  public expandedRecipes: string[] = [];
   public isLoading = true;
   private subscriptions = new SubscriptionManager();
 
@@ -46,6 +48,11 @@ export class ArticleDetailComponent implements OnInit {
           if (article) {
             this.article = article;
           }
+          this.article?.articleRecipes?.forEach((ar) => {
+            if (!this.article?.recipes?.find((r) => r.id === ar.recipeId)) {
+              this.deletedRecipes.push(ar.recipeId);
+            }
+          });
           this.isLoading = false;
         })
       );
@@ -93,5 +100,19 @@ export class ArticleDetailComponent implements OnInit {
 
   public replaceNewLine(text?: string): Array<string> {
     return replaceNewLine(text);
+  }
+
+  public isExpanded(recipeId: string): boolean {
+    return this.expandedRecipes.includes(recipeId);
+  }
+
+  public toggleExpanded(recipeId: string): void {
+    if (this.isExpanded(recipeId)) {
+      this.expandedRecipes = this.expandedRecipes.filter(
+        (element) => element !== recipeId
+      );
+    } else {
+      this.expandedRecipes.push(recipeId);
+    }
   }
 }
