@@ -63,8 +63,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   public onAddIngredientButtonPressed(): void {
     const ingredientForm = this.fb.group({
       name: ['', Validators.required],
-      quantity: ['', Validators.required],
-      unit: ['', Validators.required],
+      quantity: [''],
+      unit: [''],
     });
 
     this.ingredients.push(ingredientForm);
@@ -109,18 +109,18 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       name: [this.recipe?.name, Validators.required],
       description: [this.recipe?.description],
-      servings: [this.recipe?.steps],
+      servings: [this.recipe?.servings],
       time: [this.recipe?.time],
-      ingredients: this.fb.array([]),
-      steps: this.fb.array([]),
+      ingredients: this.fb.array([], Validators.required),
+      steps: this.fb.array([], Validators.required),
     });
 
     this.recipe?.ingredients?.forEach((ingredient) => {
       this.ingredients.push(
         this.fb.group({
           name: [ingredient.name, Validators.required],
-          quantity: [ingredient.quantity, Validators.required],
-          unit: [ingredient.unit, Validators.required],
+          quantity: [ingredient.quantity],
+          unit: [ingredient.unit],
         })
       );
     });
@@ -147,13 +147,18 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         .create({
           id: uuidv4(),
           userId: this.userService.currentUser?.id,
-          name: this.form.get('name')?.value,
-          description: this.form.get('description')?.value,
-          servings: this.form.get('servings')?.value,
-          time: this.form.get('time')?.value,
+          name: this.form.get('name')?.value || null,
+          description: this.form.get('description')?.value || null,
+          servings: this.form.get('servings')?.value || null,
+          time: this.form.get('time')?.value || null,
           ingredients: (this.ingredients.value as Ingredient[]).map<Ingredient>(
             (ingredient: Ingredient) => {
-              return { ...ingredient, id: uuidv4() };
+              return ({
+                id: uuidv4(),
+                quantity: ingredient.quantity || null,
+                unit: ingredient.unit || null,
+                name: ingredient.name
+              });
             }
           ),
           steps: (this.steps.value as Step[]).map<Step>(
@@ -189,12 +194,17 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           id: this.recipe.id,
           userId: this.recipe.userId,
           name: this.form.get('name')?.value,
-          description: this.form.get('description')?.value,
-          servings: this.form.get('servings')?.value,
-          time: this.form.get('time')?.value,
+          description: this.form.get('description')?.value || null,
+          servings: this.form.get('servings')?.value || null,
+          time: this.form.get('time')?.value || null,
           ingredients: (this.ingredients.value as Ingredient[]).map<Ingredient>(
             (ingredient: Ingredient) => {
-              return { ...ingredient, id: ingredient.id || uuidv4() };
+              return ({
+                id: ingredient.id || uuidv4(),
+                quantity: ingredient.quantity || null,
+                unit: ingredient.unit || null,
+                name: ingredient.name
+              });
             }
           ),
           steps: (this.steps.value as Step[]).map<Step>(
