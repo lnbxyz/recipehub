@@ -1,6 +1,7 @@
 export * from './article-recipe.interface';
 export * from './article.interface';
 export * from './audited-entity.interface';
+export * from './comment.interface';
 export * from './dialog-action.interface';
 export * from './entity.interface';
 export * from './ingredient.interface';

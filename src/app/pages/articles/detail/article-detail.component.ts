@@ -200,9 +200,17 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   public onCommentButtonPressed(): void {
+    if (!this.article) {
+      return;
+    }
+
     this.subscriptions.add(
       'comments-sidebar',
-      this.commentsSidebar.open().subscribe()
+      this.commentsSidebar
+        .open({
+          articleId: this.article?.id,
+        })
+        .subscribe()
     );
   }
 }

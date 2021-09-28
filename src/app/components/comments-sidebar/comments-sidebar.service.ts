@@ -20,9 +20,9 @@ export class CommentsSidebarService {
     private injector: Injector
   ) {}
 
-  public open(): Observable<void> {
+  public open({ articleId }: { articleId: string }): Observable<void> {
     const closeSubject = new Subject<void>();
-    this.append(closeSubject);
+    this.append({ articleId, closeSubject });
     return closeSubject.asObservable().pipe(
       tap(() => {
         this.remove();
@@ -30,13 +30,20 @@ export class CommentsSidebarService {
     );
   }
 
-  private append(closeSubject: Subject<void>) {
+  private append({
+    articleId,
+    closeSubject,
+  }: {
+    articleId: string;
+    closeSubject: Subject<void>;
+  }) {
     const componentFactory =
       this.componentFactoryResolver.resolveComponentFactory(
         CommentsSidebarComponent
       );
     const componentRef = componentFactory.create(this.injector);
     componentRef.instance.closeSubject = closeSubject;
+    componentRef.instance.articleId = articleId;
 
     this.appRef.attachView(componentRef.hostView);
 
