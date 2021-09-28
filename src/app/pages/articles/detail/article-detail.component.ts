@@ -77,9 +77,7 @@ export class ArticleDetailComponent implements OnInit {
       this.articleService.delete(this.article.id).subscribe(
         // Success
         () => {
-          console.log('deleted');
-          // TODO figure out where to go from here
-          // this.router.navigate(['../'], { relativeTo: this.route });
+          this.router.navigate(['feed']);
         },
         // Failure
         () => {
@@ -88,7 +86,7 @@ export class ArticleDetailComponent implements OnInit {
             'error-dialog',
             this.dialog
               .open({
-                message: 'Não foi possível apagar a receita',
+                message: 'Não foi possível apagar o artigo',
                 actions: [{ text: 'OK' }],
               })
               .subscribe()

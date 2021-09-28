@@ -5,9 +5,10 @@ import { LoadingModule } from 'src/app/components/loading/loading.module';
 import { ArticlesRoutingModule } from './articles-routing.module';
 import { DialogModule } from 'src/app/components/dialog/dialog.module';
 import { InteractionButtonModule } from 'src/app/components/interaction-button/interaction-button.module';
+import { ArticleEditComponent } from './edit/article-edit.component';
 
 @NgModule({
-  declarations: [ArticleDetailComponent],
+  declarations: [ArticleDetailComponent, ArticleEditComponent],
   imports: [
     CommonModule,
     ArticlesRoutingModule,
