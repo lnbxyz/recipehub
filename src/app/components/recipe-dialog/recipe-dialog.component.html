@@ -1,6 +1,8 @@
 <div class="overlay" (click)="close()">
-  <div class="dialog">
+  <div class="dialog" (click)="onDialogClick($event)">
     <h2>Escolha uma receita</h2>
+
+    <input type="text" [formControl]="seachControl" placeholder="Pesquisar" />
 
     <ng-container *ngIf="!isLoading; else loading">
       <ng-container *ngIf="!hasError; else errorMessage">
