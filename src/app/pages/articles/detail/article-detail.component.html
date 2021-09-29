@@ -23,7 +23,6 @@
       ></rh-interaction-button>
 
       <rh-interaction-button
-        *ngIf="article?.userId === userService.currentUser?.id"
         icon="comment"
         [caption]="commentCaption"
         (onClick)="onCommentButtonPressed()"
