@@ -19,4 +19,8 @@ export class DialogComponent implements OnInit {
   public close(value?: string): void {
     this.closeSubject.next(value);
   }
+
+  public onDialogClick(event: Event): void {
+    event.stopPropagation();
+  }
 }
