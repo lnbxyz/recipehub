@@ -28,7 +28,6 @@ import { EmptyMessageModule } from 'src/app/components/empty-message/empty-messa
     DialogModule,
     LoadingModule,
     EmptyMessageModule,
-    FormsModule,
   ],
 })
 export class RecipesModule {}
