@@ -1,9 +1,12 @@
 <div class="header">
   <h1>Minhas Receitas</h1>
 
-  <rh-button icon="plus" (onClick)="onCreateButtonPressed()">
-    Nova receita
-  </rh-button>
+  <div class="actions">
+    <input type="text" [formControl]="seachControl" placeholder="Pesquisar" />
+    <rh-button icon="plus" (onClick)="onCreateButtonPressed()">
+      Nova receita
+    </rh-button>
+  </div>
 </div>
 
 <ng-container *ngIf="!isLoading; else loading">

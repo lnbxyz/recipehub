@@ -31,20 +31,24 @@ export class RecipeDialogComponent implements OnInit {
     this.isLoading = true;
     this.subscriptions.add(
       'get-recipes',
-      this.recipeService.getByUser(this.userService.currentUser.id).subscribe(
-        // Success
-        (recipes) => {
-          if (recipes) {
-            this.recipes = recipes;
+      this.recipeService
+        .getByUser({
+          userId: this.userService.currentUser.id,
+        })
+        .subscribe(
+          // Success
+          (recipes) => {
+            if (recipes) {
+              this.recipes = recipes;
+            }
+            this.isLoading = false;
+          },
+          // Failure
+          () => {
+            this.hasError = true;
+            this.isLoading = false;
           }
-          this.isLoading = false;
-        },
-        // Failure
-        () => {
-          this.hasError = true;
-          this.isLoading = false;
-        }
-      )
+        )
     );
   }
 

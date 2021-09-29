@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,9 +12,20 @@ export class RecipeService {
     return this.http.get<Recipe[]>(`${environment.apiPath}/recipe`);
   }
 
-  public getByUser(userId: string): Observable<Recipe[] | undefined> {
+  public getByUser({
+    userId,
+    searchTerm,
+  }: {
+    userId: string;
+    searchTerm?: string;
+  }): Observable<Recipe[] | undefined> {
+    let params = new HttpParams();
+    if (searchTerm) {
+      params = params.append('searchTerm', searchTerm);
+    }
     return this.http.get<Recipe[]>(
-      `${environment.apiPath}/recipe/user/${userId}`
+      `${environment.apiPath}/recipe/user/${userId}`,
+      { params }
     );
   }
 
