@@ -65,8 +65,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
+  h4 {
+    font-weight: 500;
+  }
 
-  .time {
+  h6 {
     font-weight: 300;
   }
 }

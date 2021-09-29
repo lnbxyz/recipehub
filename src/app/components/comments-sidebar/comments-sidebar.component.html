@@ -22,7 +22,7 @@
             <div class="comment-header">
               <h4>{{ comment.user?.name }}</h4>
 
-              <h6 class="time">
+              <h6>
                 <span>{{ comment.createdOn | date: "short" }}</span>
                 <span *ngIf="comment.modifiedOn">
                   - editado {{ comment.modifiedOn | date: "short" }}
