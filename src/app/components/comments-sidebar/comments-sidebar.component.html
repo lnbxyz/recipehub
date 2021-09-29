@@ -1,0 +1,108 @@
+<div class="overlay" (click)="close()">
+  <div class="sidebar" (click)="onSidebarClicked($event)">
+    <h2>Comentários</h2>
+
+    <ng-container *ngIf="!isLoading; else loading">
+      <ng-container *ngIf="!hasError; else errorMessage">
+        <div class="comment-form">
+          <textarea
+            [(ngModel)]="commentField"
+            placeholder="Adicionar comentário..."
+            rows="2"
+          ></textarea>
+          <rh-button
+            type="secondary"
+            icon="paper-plane"
+            (click)="onAddCommentButtonPressed()"
+          ></rh-button>
+        </div>
+
+        <div *ngIf="comments?.length; else emptyMessage" class="comment-list">
+          <div *ngFor="let comment of comments" class="comment">
+            <div class="comment-header">
+              <h4>{{ comment.user?.name }}</h4>
+
+              <h6>
+                <span>{{ comment.createdOn | date: "short" }}</span>
+                <span *ngIf="comment.modifiedOn">
+                  - editado {{ comment.modifiedOn | date: "short" }}
+                </span>
+              </h6>
+            </div>
+
+            <p *ngIf="editingCommentId !== comment.id" class="body">
+              <ng-container *ngFor="let line of replaceNewLine(comment.body)">
+                {{ line }} <br />
+              </ng-container>
+            </p>
+
+            <textarea
+              *ngIf="editingCommentId === comment.id"
+              [(ngModel)]="editingCommentField"
+              placeholder="Adicionar comentário..."
+              rows="2"
+              class="body"
+            ></textarea>
+
+            <div
+              *ngIf="
+                comment.userId === userService.currentUser?.id &&
+                editingCommentId !== comment.id
+              "
+              class="comment-actions"
+            >
+              <h6
+                class="comment-action"
+                (click)="onEditCommentButtonPressed(comment)"
+              >
+                editar
+              </h6>
+
+              <h6 class="decorative">·</h6>
+
+              <h6
+                class="comment-action"
+                (click)="onDeleteCommentButtonPressed(comment)"
+              >
+                apagar
+              </h6>
+            </div>
+
+            <div
+              *ngIf="editingCommentId === comment.id"
+              class="comment-actions"
+            >
+              <h6
+                class="comment-action"
+                (click)="onSaveCommentButtonPressed(comment)"
+              >
+                salvar
+              </h6>
+
+              <h6 class="decorative">·</h6>
+
+              <h6
+                class="comment-action"
+                (click)="onCancelEditCommentButtonPressed()"
+              >
+                cancelar
+              </h6>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #emptyMessage>
+      <rh-empty-message>Não encontramos nenhum comentário!</rh-empty-message>
+    </ng-template>
+
+    <ng-template #loading>
+      <rh-loading></rh-loading>
+    </ng-template>
+
+    <ng-template #errorMessage>
+      <rh-empty-message>Um erro inesperado ocorreu!</rh-empty-message>
+    </ng-template>
+  </div>
+</div>
