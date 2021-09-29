@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
-import { Comment } from 'src/app/tokens';
+import { Comment, replaceNewLine } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -156,5 +156,9 @@ export class CommentsSidebarComponent implements OnInit {
 
   public onSidebarClicked(event: Event): void {
     event.stopPropagation();
+  }
+
+  public replaceNewLine(text?: string): Array<string> {
+    return replaceNewLine(text);
   }
 }

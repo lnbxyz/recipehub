@@ -53,12 +53,27 @@
 .comment {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+
+  + .comment {
+    border-top: 1px solid var(--rh-color-background-secondary);
+    padding-top: 1rem;
+  }
+}
+
+.comment-header {
+  display: flex;
+  flex-direction: column;
   gap: 0.125rem;
+
+  .time {
+    font-weight: 300;
+  }
 }
 
 .comment-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .comment-action {

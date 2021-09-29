@@ -19,21 +19,31 @@
 
         <div *ngIf="comments?.length; else emptyMessage" class="comment-list">
           <div *ngFor="let comment of comments" class="comment">
-            <h4>{{ comment.user?.name }}</h4>
-            <p *ngIf="editingCommentId !== comment.id">{{ comment.body }}</p>
+            <div class="comment-header">
+              <h4>{{ comment.user?.name }}</h4>
+
+              <h6 class="time">
+                <span>{{ comment.createdOn | date: "short" }}</span>
+                <span *ngIf="comment.modifiedOn">
+                  - editado {{ comment.modifiedOn | date: "short" }}
+                </span>
+              </h6>
+            </div>
+
+            <p *ngIf="editingCommentId !== comment.id" class="body">
+              <ng-container *ngFor="let line of replaceNewLine(comment.body)">
+                {{ line }} <br />
+              </ng-container>
+            </p>
 
             <textarea
               *ngIf="editingCommentId === comment.id"
               [(ngModel)]="editingCommentField"
               placeholder="Adicionar comentário..."
               rows="2"
+              class="body"
             ></textarea>
-            <h6>
-              <span>{{ comment.createdOn | date: "short" }}</span>
-              <span *ngIf="comment.modifiedOn">
-                - editado {{ comment.modifiedOn | date: "short" }}
-              </span>
-            </h6>
+
             <div
               *ngIf="
                 comment.userId === userService.currentUser?.id &&
@@ -47,7 +57,9 @@
               >
                 editar
               </h6>
+
               <h6 class="decorative">·</h6>
+
               <h6
                 class="comment-action"
                 (click)="onDeleteCommentButtonPressed(comment)"
@@ -66,7 +78,9 @@
               >
                 salvar
               </h6>
+
               <h6 class="decorative">·</h6>
+
               <h6
                 class="comment-action"
                 (click)="onCancelEditCommentButtonPressed()"
