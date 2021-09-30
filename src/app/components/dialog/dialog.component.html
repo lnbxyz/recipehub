@@ -1,5 +1,5 @@
 <div class="overlay" (click)="close()">
-  <div class="dialog">
+  <div class="dialog" (click)="onDialogClick($event)">
     <h2>{{ message }}</h2>
     <div class="actions" *ngIf="actions.length">
       <rh-button

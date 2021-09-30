@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounce, debounceTime } from 'rxjs/operators';
 import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { UserService } from 'src/app/services/user.service';
@@ -13,6 +15,7 @@ import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager
 export class RecipesListComponent implements OnInit, OnDestroy {
   public recipes: Recipe[] = [];
   public isLoading = true;
+  public seachControl = new FormControl();
   private subscriptions = new SubscriptionManager();
 
   constructor(
@@ -25,6 +28,14 @@ export class RecipesListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getRecipes();
+    this.subscriptions.add(
+      'search-value-changes',
+      this.seachControl.valueChanges
+        .pipe(debounceTime(250))
+        .subscribe((value) => {
+          this.getRecipes(value);
+        })
+    );
   }
 
   ngOnDestroy(): void {
@@ -42,27 +53,34 @@ export class RecipesListComponent implements OnInit, OnDestroy {
     this.router.navigate([recipe.id], { relativeTo: this.route });
   }
 
-  private getRecipes(): void {
+  private getRecipes(searchTerm?: string): void {
     if (!this.userService.currentUser) {
       return;
     }
     this.isLoading = true;
     this.subscriptions.add(
       'get-recipes',
-      this.recipeService.getByUser(this.userService.currentUser.id).subscribe(
-        // Success
-        (recipes) => {
-          if (recipes) {
-            this.recipes = recipes;
+      this.recipeService
+        .getByUser({
+          userId: this.userService.currentUser.id,
+          searchTerm,
+        })
+        .subscribe(
+          // Success
+          (recipes) => {
+            if (recipes) {
+              this.recipes = recipes;
+            }
+            this.isLoading = false;
+          },
+          // Failure
+          () => {
+            this.isLoading = false;
+            this.showErrorDialog(
+              'Não foi possível carregar a lista de receitas'
+            );
           }
-          this.isLoading = false;
-        },
-        // Failure
-        () => {
-          this.isLoading = false;
-          this.showErrorDialog('Não foi possível carregar a lista de receitas');
-        }
-      )
+        )
     );
   }
 
