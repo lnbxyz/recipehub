@@ -6,6 +6,7 @@ import { ButtonModule } from 'src/app/components/button/button.module';
 import { ProfileEditComponent } from './edit/profile-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'src/app/components/dialog/dialog.module';
+import { ArticleModule } from 'src/app/components/article/article.module';
 
 @NgModule({
   declarations: [ProfileDetailsComponent, ProfileEditComponent],
@@ -15,6 +16,7 @@ import { DialogModule } from 'src/app/components/dialog/dialog.module';
     ProfileRoutingModule,
     ButtonModule,
     DialogModule,
+    ArticleModule
   ],
 })
 export class ProfileModule {}
