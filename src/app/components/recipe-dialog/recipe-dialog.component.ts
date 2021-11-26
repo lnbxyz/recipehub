@@ -51,6 +51,7 @@ export class RecipeDialogComponent implements OnInit {
         .getByUser({
           userId: this.userService.currentUser.id,
           searchTerm,
+          availableOnly: true,
         })
         .subscribe(
           // Success

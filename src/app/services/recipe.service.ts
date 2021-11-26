@@ -15,14 +15,20 @@ export class RecipeService {
   public getByUser({
     userId,
     searchTerm,
+    availableOnly,
   }: {
     userId: string;
     searchTerm?: string;
+    availableOnly?: boolean;
   }): Observable<Recipe[] | undefined> {
     let params = new HttpParams();
     if (searchTerm) {
       params = params.append('searchTerm', searchTerm);
     }
+    params = params.append(
+      'availableOnly',
+      (availableOnly || false).toString()
+    );
     return this.http.get<Recipe[]>(
       `${environment.apiPath}/recipe/user/${userId}`,
       { params }
