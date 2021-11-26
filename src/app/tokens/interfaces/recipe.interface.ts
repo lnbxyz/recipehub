@@ -13,4 +13,5 @@ export interface Recipe extends Entity, AuditedEntity, MustHaveOwner {
   ingredients?: Ingredient[];
   steps?: Step[];
   tags?: Tag[];
+  articleId?: string;
 }

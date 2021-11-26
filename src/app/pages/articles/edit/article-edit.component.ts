@@ -76,6 +76,7 @@ export class ArticleEditComponent implements OnInit {
       createdOn: [recipe.createdOn],
       modifiedOn: [recipe.modifiedOn],
       userId: [recipe.userId],
+      articleId: [this.article?.id],
     });
 
     this.recipes.push(recipeForm);
@@ -166,7 +167,9 @@ export class ArticleEditComponent implements OnInit {
           userId: this.userService.currentUser?.id,
           name: this.form.get('name')?.value || null,
           description: this.form.get('description')?.value || null,
-          recipes: this.recipes.value,
+          recipes: this.recipes.value.map(
+            (r: Recipe) => <Recipe>{ ...r, articleId: ID }
+          ),
         })
         .subscribe(
           // Success
@@ -195,7 +198,12 @@ export class ArticleEditComponent implements OnInit {
           userId: this.article.userId,
           name: this.form.get('name')?.value,
           description: this.form.get('description')?.value || null,
-          recipes: this.recipes.value,
+          recipes: this.recipes.value.map((r: Recipe) => {
+            if (!this.article) {
+              return;
+            }
+            return <Recipe>{ ...r, articleId: this.article.id };
+          }),
         })
         .subscribe(
           // Success
