@@ -13,7 +13,6 @@ import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager
 })
 export class ArticleDetailComponent implements OnInit {
   public article?: Article;
-  public deletedRecipes: string[] = [];
   public expandedRecipes: string[] = [];
   public isLoading = true;
   private subscriptions = new SubscriptionManager();
@@ -60,11 +59,6 @@ export class ArticleDetailComponent implements OnInit {
             if (article) {
               this.article = article;
             }
-            this.article?.articleRecipes?.forEach((ar) => {
-              if (!this.article?.recipes?.find((r) => r.id === ar.recipeId)) {
-                this.deletedRecipes.push(ar.recipeId);
-              }
-            });
             this.isLoading = false;
           })
       );

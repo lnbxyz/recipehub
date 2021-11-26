@@ -1,4 +1,3 @@
-export * from './article-recipe.interface';
 export * from './article.interface';
 export * from './audited-entity.interface';
 export * from './comment.interface';

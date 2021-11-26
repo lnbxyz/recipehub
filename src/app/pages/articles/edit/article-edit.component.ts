@@ -5,7 +5,7 @@ import { DialogService } from 'src/app/components/dialog/dialog.service';
 import { RecipeDialogService } from 'src/app/components/recipe-dialog/recipe-dialog.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
-import { Article, ArticleRecipe, Recipe } from 'src/app/tokens';
+import { Article, Recipe } from 'src/app/tokens';
 import { SubscriptionManager } from 'src/app/tokens/classes/subscription-manager.class';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -65,10 +65,17 @@ export class ArticleEditComponent implements OnInit {
 
   public addRecipe(recipe: Recipe): void {
     const recipeForm = this.fb.group({
-      id: [undefined],
-      articleId: [undefined],
-      recipeId: [recipe.id],
+      id: [recipe.id],
       name: [recipe.name],
+      description: [recipe.description],
+      servings: [recipe.servings],
+      time: [recipe.time],
+      ingredients: [recipe.ingredients],
+      steps: [recipe.steps],
+      tags: [recipe.tags],
+      createdOn: [recipe.createdOn],
+      modifiedOn: [recipe.modifiedOn],
+      userId: [recipe.userId],
     });
 
     this.recipes.push(recipeForm);
@@ -123,16 +130,20 @@ export class ArticleEditComponent implements OnInit {
       recipes: this.fb.array([], Validators.required),
     });
 
-    this.article?.articleRecipes?.forEach((ar) => {
+    this.article?.recipes?.forEach((recipe) => {
       this.recipes.push(
         this.fb.group({
-          id: [ar.id],
-          articleId: [ar.articleId],
-          recipeId: [ar.recipeId],
-          name: [
-            this.article?.recipes?.find((r) => r.id === ar.recipeId)?.name ||
-              'Ops! Esta receita não existe mais :(',
-          ],
+          id: [recipe.id],
+          name: [recipe.name],
+          description: [recipe.description],
+          servings: [recipe.servings],
+          time: [recipe.time],
+          ingredients: [recipe.ingredients],
+          steps: [recipe.steps],
+          tags: [recipe.tags],
+          createdOn: [recipe.createdOn],
+          modifiedOn: [recipe.modifiedOn],
+          userId: [recipe.userId],
         })
       );
     });
@@ -155,16 +166,7 @@ export class ArticleEditComponent implements OnInit {
           userId: this.userService.currentUser?.id,
           name: this.form.get('name')?.value || null,
           description: this.form.get('description')?.value || null,
-          articleRecipes: (this.recipes.value as Array<any>).map<ArticleRecipe>(
-            (item: any) => {
-              // remove name property
-              return <ArticleRecipe>{
-                id: uuidv4(),
-                articleId: ID,
-                recipeId: item.recipeId,
-              };
-            }
-          ),
+          recipes: this.recipes.value,
         })
         .subscribe(
           // Success
@@ -193,16 +195,7 @@ export class ArticleEditComponent implements OnInit {
           userId: this.article.userId,
           name: this.form.get('name')?.value,
           description: this.form.get('description')?.value || null,
-          articleRecipes: (this.recipes.value as Array<any>).map<ArticleRecipe>(
-            (item: any) => {
-              // remove name property
-              return <ArticleRecipe>{
-                id: item.id || uuidv4(),
-                articleId: this.article?.id,
-                recipeId: item.recipeId,
-              };
-            }
-          ),
+          recipes: this.recipes.value,
         })
         .subscribe(
           // Success
